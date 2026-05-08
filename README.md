@@ -1,6 +1,6 @@
 # MailerSend (mailersend)
 
-MailerSend (by MailerLite) is a transactional email and SMS API with templates, drag-and-drop email builder, scheduled sends, inbound webhooks, and email-on-acid testing.
+MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main/apis.yml)
 
@@ -10,14 +10,23 @@ MailerSend (by MailerLite) is a transactional email and SMS API with templates, 
 - **x-type:** company
 
 ## Tags:
- - Email, Transactional, SMS, Templates, API
+ - Email, Transactional Email, SMTP, Marketing, Communications
 
 ## Timestamps
 - **Created:** 2026-05-08
 - **Modified:** 2026-05-08
 
+## APIs
+
+### MailerSend API
+MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
+
+- **Human URL:** https://developers.mailersend.com/
+- **Base URL:** https://api.mailersend.com/v1
+
 ## Common Properties
 - [Website](https://www.mailersend.com/)
+- [Documentation](https://developers.mailersend.com/)
 - [Plans](plans/mailersend-plans-pricing.yml) — placeholder, pipeline reconciles later
 - [RateLimits](rate-limits/mailersend-rate-limits.yml) — placeholder
 - [FinOps](finops/mailersend-finops.yml) — FOCUS-aligned placeholder

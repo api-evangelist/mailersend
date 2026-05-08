@@ -3,21 +3,39 @@ url: https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main
 name: MailerSend
 x-type: company
 description: >-
-  MailerSend (by MailerLite) is a transactional email and SMS API with templates, drag-and-drop email builder, scheduled sends, inbound webhooks, and email-on-acid testing.
+  MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Email
-  - Transactional
-  - SMS
-  - Templates
-  - API
+  - Transactional Email
+  - SMTP
+  - Marketing
+  - Communications
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: mailersend:mailersend-api
+    name: MailerSend API
+    description: >-
+      MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developers.mailersend.com/
+    baseURL: https://api.mailersend.com/v1
+    tags:
+      - Email
+      - Transactional
+      - REST
+    properties:
+      - type: Documentation
+        url: https://developers.mailersend.com/
+      - type: Email Endpoint
+        url: https://developers.mailersend.com/api/v1/email.html
 common:
   - type: Website
     url: https://www.mailersend.com/
+  - type: Documentation
+    url: https://developers.mailersend.com/
   - type: Plans
     url: plans/mailersend-plans-pricing.yml
   - type: RateLimits
