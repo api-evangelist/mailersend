@@ -1,7 +1,7 @@
 aid: mailersend
 url: https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main/apis.yml
 name: MailerSend
-x-type: company
+kind: company
 description: >-
   MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
