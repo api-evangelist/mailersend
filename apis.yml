@@ -32,6 +32,10 @@ apis:
       - type: Email Endpoint
         url: https://developers.mailersend.com/api/v1/email.html
 common:
+  - type: GitHubOrganization
+    url: https://github.com/mailersend
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/mailersend
   - type: Website
     url: https://www.mailersend.com/
   - type: Documentation
