@@ -1,0 +1,281 @@
+openapi: 3.1.0
+info:
+  title: MailerSend API
+  description: >-
+    MailerSend's REST API provides endpoints for sending transactional and
+    bulk emails, retrieving message activity, and managing templates, domains,
+    sender identities, scheduled messages, and webhooks. Authentication uses
+    a Bearer API token. Single email sends are asynchronous and return an
+    `x-message-id` response header.
+  version: "1.0.0"
+  contact:
+    name: MailerSend
+    url: https://developers.mailersend.com/
+servers:
+  - url: https://api.mailersend.com/v1
+    description: Production
+security:
+  - BearerAuth: []
+tags:
+  - name: Email
+  - name: Bulk Email
+  - name: Templates
+  - name: Domains
+  - name: Sender Identities
+  - name: Webhooks
+  - name: Messages
+paths:
+  /email:
+    post:
+      tags: [Email]
+      summary: Send an email
+      description: Send a single transactional email. Either `text` or `html` content must be supplied.
+      operationId: sendEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [from, to]
+              properties:
+                from:
+                  type: object
+                  required: [email]
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    name:
+                      type: string
+                to:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                      name:
+                        type: string
+                subject:
+                  type: string
+                text:
+                  type: string
+                html:
+                  type: string
+                template_id:
+                  type: string
+      responses:
+        '202':
+          description: Email queued; response includes `x-message-id` header.
+        '422':
+          description: Validation error
+  /bulk-email:
+    post:
+      tags: [Bulk Email]
+      summary: Send bulk emails
+      description: Send up to 500 emails per request (paid plans). Returns a `bulk_email_id` for status queries.
+      operationId: sendBulkEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+      responses:
+        '202':
+          description: Bulk job accepted
+        '422':
+          description: Validation error
+  /bulk-email/{bulk_email_id}:
+    get:
+      tags: [Bulk Email]
+      summary: Get bulk email status
+      operationId: getBulkEmailStatus
+      parameters:
+        - name: bulk_email_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bulk status with validation errors and failed messages
+        '404':
+          description: Bulk email ID not found
+  /templates:
+    get:
+      tags: [Templates]
+      summary: List templates
+      operationId: listTemplates
+      responses:
+        '200':
+          description: Templates
+  /templates/{template_id}:
+    get:
+      tags: [Templates]
+      summary: Get a template
+      operationId: getTemplate
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Template
+    delete:
+      tags: [Templates]
+      summary: Delete a template
+      operationId: deleteTemplate
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+  /domains:
+    get:
+      tags: [Domains]
+      summary: List domains
+      operationId: listDomains
+      responses:
+        '200':
+          description: Domains
+    post:
+      tags: [Domains]
+      summary: Add a domain
+      operationId: addDomain
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Domain
+  /domains/{domain_id}:
+    get:
+      tags: [Domains]
+      summary: Get a domain
+      operationId: getDomain
+      parameters:
+        - name: domain_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Domain
+  /identities:
+    get:
+      tags: [Sender Identities]
+      summary: List sender identities
+      operationId: listIdentities
+      responses:
+        '200':
+          description: Identities
+    post:
+      tags: [Sender Identities]
+      summary: Create sender identity
+      operationId: createIdentity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Identity
+  /webhooks:
+    get:
+      tags: [Webhooks]
+      summary: List webhooks
+      operationId: listWebhooks
+      responses:
+        '200':
+          description: Webhooks
+    post:
+      tags: [Webhooks]
+      summary: Create webhook
+      operationId: createWebhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, events, name, domain_id]
+              properties:
+                url:
+                  type: string
+                  format: uri
+                events:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: string
+                domain_id:
+                  type: string
+                enabled:
+                  type: boolean
+      responses:
+        '201':
+          description: Webhook
+  /webhooks/{webhook_id}:
+    delete:
+      tags: [Webhooks]
+      summary: Delete a webhook
+      operationId: deleteWebhook
+      parameters:
+        - name: webhook_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted
+  /messages:
+    get:
+      tags: [Messages]
+      summary: List messages
+      operationId: listMessages
+      responses:
+        '200':
+          description: Messages
+  /messages/{message_id}:
+    get:
+      tags: [Messages]
+      summary: Get a message
+      operationId: getMessage
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Message
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API token generated in MailerSend dashboard.
