@@ -1,0 +1,310 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MailerSend API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a single transactional email. Either `text` or `html` content must be supplied."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send bulk emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/bulk-email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send up to 500 emails per request (paid plans). Returns a `bulk_email_id` for status queries."
+        },
+        {
+          "info": {
+            "name": "Get bulk email status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/bulk-email/:bulk_email_id",
+            "params": [
+              {
+                "name": "bulk_email_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get bulk email status"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/templates"
+          },
+          "docs": "List templates"
+        },
+        {
+          "info": {
+            "name": "Get a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/templates/:template_id",
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a template"
+        },
+        {
+          "info": {
+            "name": "Delete a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mailersend.com/v1/templates/:template_id",
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a template"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/domains"
+          },
+          "docs": "List domains"
+        },
+        {
+          "info": {
+            "name": "Add a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/domains",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a domain"
+        },
+        {
+          "info": {
+            "name": "Get a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/domains/:domain_id",
+            "params": [
+              {
+                "name": "domain_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a domain"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sender Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sender identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/identities"
+          },
+          "docs": "List sender identities"
+        },
+        {
+          "info": {
+            "name": "Create sender identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/identities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create sender identity"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/webhooks"
+          },
+          "docs": "List webhooks"
+        },
+        {
+          "info": {
+            "name": "Create webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create webhook"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.mailersend.com/v1/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a webhook"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/messages"
+          },
+          "docs": "List messages"
+        },
+        {
+          "info": {
+            "name": "Get a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/messages/:message_id",
+            "params": [
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a message"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
