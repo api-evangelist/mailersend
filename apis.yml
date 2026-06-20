@@ -4,7 +4,7 @@ name: MailerSend
 kind: company
 description: >-
   MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Email
   - Transactional Email
@@ -19,7 +19,7 @@ apis:
     name: MailerSend API
     description: >-
       MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.mailersend.com/
     baseURL: https://api.mailersend.com/v1
     tags:
