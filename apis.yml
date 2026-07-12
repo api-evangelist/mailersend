@@ -32,6 +32,10 @@ apis:
       - type: Email Endpoint
         url: https://developers.mailersend.com/api/v1/email.html
 common:
+  - type: DomainSecurity
+    url: security/mailersend-domain-security.yml
+  - type: Authentication
+    url: authentication/mailersend-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/mailersend
   - type: LinkedIn
