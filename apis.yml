@@ -32,6 +32,8 @@ apis:
       - type: Email Endpoint
         url: https://developers.mailersend.com/api/v1/email.html
 common:
+  - type: AgenticAccess
+    url: agentic-access/mailersend-agentic-access.yml
   - type: DomainSecurity
     url: security/mailersend-domain-security.yml
   - type: Authentication
