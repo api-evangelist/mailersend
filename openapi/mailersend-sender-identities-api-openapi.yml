@@ -1,0 +1,45 @@
+openapi: 3.1.0
+info:
+  title: MailerSend Bulk Email Sender Identities API
+  description: MailerSend's REST API provides endpoints for sending transactional and bulk emails, retrieving message activity, and managing templates, domains, sender identities, scheduled messages, and webhooks. Authentication uses a Bearer API token. Single email sends are asynchronous and return an `x-message-id` response header.
+  version: 1.0.0
+  contact:
+    name: MailerSend
+    url: https://developers.mailersend.com/
+servers:
+- url: https://api.mailersend.com/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Sender Identities
+paths:
+  /identities:
+    get:
+      tags:
+      - Sender Identities
+      summary: List sender identities
+      operationId: listIdentities
+      responses:
+        '200':
+          description: Identities
+    post:
+      tags:
+      - Sender Identities
+      summary: Create sender identity
+      operationId: createIdentity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Identity
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API token generated in MailerSend dashboard.

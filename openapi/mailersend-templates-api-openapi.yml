@@ -1,0 +1,60 @@
+openapi: 3.1.0
+info:
+  title: MailerSend Bulk Email Templates API
+  description: MailerSend's REST API provides endpoints for sending transactional and bulk emails, retrieving message activity, and managing templates, domains, sender identities, scheduled messages, and webhooks. Authentication uses a Bearer API token. Single email sends are asynchronous and return an `x-message-id` response header.
+  version: 1.0.0
+  contact:
+    name: MailerSend
+    url: https://developers.mailersend.com/
+servers:
+- url: https://api.mailersend.com/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Templates
+paths:
+  /templates:
+    get:
+      tags:
+      - Templates
+      summary: List templates
+      operationId: listTemplates
+      responses:
+        '200':
+          description: Templates
+  /templates/{template_id}:
+    get:
+      tags:
+      - Templates
+      summary: Get a template
+      operationId: getTemplate
+      parameters:
+      - name: template_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Template
+    delete:
+      tags:
+      - Templates
+      summary: Delete a template
+      operationId: deleteTemplate
+      parameters:
+      - name: template_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API token generated in MailerSend dashboard.

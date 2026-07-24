@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  title: MailerSend Bulk Email API
+  description: MailerSend's REST API provides endpoints for sending transactional and bulk emails, retrieving message activity, and managing templates, domains, sender identities, scheduled messages, and webhooks. Authentication uses a Bearer API token. Single email sends are asynchronous and return an `x-message-id` response header.
+  version: 1.0.0
+  contact:
+    name: MailerSend
+    url: https://developers.mailersend.com/
+servers:
+- url: https://api.mailersend.com/v1
+  description: Production
+security:
+- BearerAuth: []
+tags:
+- name: Email
+paths:
+  /email:
+    post:
+      tags:
+      - Email
+      summary: Send an email
+      description: Send a single transactional email. Either `text` or `html` content must be supplied.
+      operationId: sendEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - from
+              - to
+              properties:
+                from:
+                  type: object
+                  required:
+                  - email
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    name:
+                      type: string
+                to:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                      name:
+                        type: string
+                subject:
+                  type: string
+                text:
+                  type: string
+                html:
+                  type: string
+                template_id:
+                  type: string
+      responses:
+        '202':
+          description: Email queued; response includes `x-message-id` header.
+        '422':
+          description: Validation error
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API token generated in MailerSend dashboard.
