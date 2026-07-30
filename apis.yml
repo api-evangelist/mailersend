@@ -4,7 +4,20 @@ name: MailerSend
 kind: company
 description: >-
   MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mailersend.png
 tags:
   - Email
   - Transactional Email
@@ -15,22 +28,93 @@ created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
 apis:
-  - aid: mailersend:mailersend-api
-    name: MailerSend API
-    description: >-
-      MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.mailersend.com/
-    baseURL: https://api.mailersend.com/v1
-    tags:
-      - Email
-      - Transactional
-      - REST
-    properties:
-      - type: Documentation
-        url: https://developers.mailersend.com/
-      - type: Email Endpoint
-        url: https://developers.mailersend.com/api/v1/email.html
+- aid: mailersend:mailersend-api
+  name: MailerSend API
+  description: >-
+    MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates,
+    domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Email
+  - Transactional
+  - REST
+  properties:
+  - type: Documentation
+    url: https://developers.mailersend.com/
+  - type: Email Endpoint
+    url: https://developers.mailersend.com/api/v1/email.html
+- aid: mailersend:mailersend-bulk-email-api
+  name: MailerSend Bulk Email API
+  description: The Bulk Email API from MailerSend — 2 operation(s) for bulk email.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Bulk Email
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-bulk-email-api-openapi.yml
+- aid: mailersend:mailersend-domains-api
+  name: MailerSend Domains API
+  description: The Domains API from MailerSend — 2 operation(s) for domains.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-domains-api-openapi.yml
+- aid: mailersend:mailersend-email-api
+  name: MailerSend Email API
+  description: The Email API from MailerSend — 1 operation(s) for email.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-email-api-openapi.yml
+- aid: mailersend:mailersend-messages-api
+  name: MailerSend Messages API
+  description: The Messages API from MailerSend — 2 operation(s) for messages.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-messages-api-openapi.yml
+- aid: mailersend:mailersend-sender-identities-api
+  name: MailerSend Sender Identities API
+  description: The Sender Identities API from MailerSend — 1 operation(s) for sender identities.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Sender Identities
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-sender-identities-api-openapi.yml
+- aid: mailersend:mailersend-templates-api
+  name: MailerSend Templates API
+  description: The Templates API from MailerSend — 2 operation(s) for templates.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-templates-api-openapi.yml
+- aid: mailersend:mailersend-webhooks-api
+  name: MailerSend Webhooks API
+  description: The Webhooks API from MailerSend — 2 operation(s) for webhooks.
+  humanURL: https://developers.mailersend.com/
+  baseURL: https://api.mailersend.com/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/mailersend-webhooks-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/mailersend-agentic-access.yml
