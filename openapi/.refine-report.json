@@ -1,0 +1,26 @@
+{
+  "provider": "mailersend",
+  "sources": [
+    "mailersend-bulk-email-api-openapi.yml",
+    "mailersend-domains-api-openapi.yml",
+    "mailersend-email-api-openapi.yml",
+    "mailersend-messages-api-openapi.yml",
+    "mailersend-sender-identities-api-openapi.yml",
+    "mailersend-templates-api-openapi.yml",
+    "mailersend-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "mailersend-bulk-email-api-openapi.yml",
+    "mailersend-domains-api-openapi.yml",
+    "mailersend-email-api-openapi.yml",
+    "mailersend-messages-api-openapi.yml",
+    "mailersend-sender-identities-api-openapi.yml",
+    "mailersend-templates-api-openapi.yml",
+    "mailersend-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
