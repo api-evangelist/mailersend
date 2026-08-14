@@ -3,7 +3,14 @@ url: https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main
 name: MailerSend
 kind: company
 description: >-
-  MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
+  MailerSend is a transactional email and SMS platform built for developers. Its v1 REST API covers email
+  sending (single, bulk to 500 objects per request, and scheduled up to 72 hours out), SMTP relay,
+  templates, sending domains and DNS verification, sender identities, recipients and five suppression
+  lists, inbound routing, activity and analytics, email verification, DMARC and blocklist monitoring, SMS,
+  and account/token administration. Authentication is a domain-scoped bearer token drawn from a 30-value
+  scope vocabulary. MailerSend ships six official SDKs, an official Laravel driver, a Go CLI with an
+  interactive TUI, a remote OAuth-protected MCP server exposing 127 tools, and its own published Agent
+  Skill — but no machine-readable API contract and no idempotency guarantee.
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -24,8 +31,16 @@ tags:
   - SMTP
   - Marketing
   - Communications
+  - SMS
+  - Messaging
+  - Templates
+  - Webhooks
+  - Email Verification
+  - Deliverability
+  - Analytics
+  - MCP
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: mailersend:mailersend-api
@@ -43,8 +58,8 @@ apis:
   properties:
   - type: Documentation
     url: https://developers.mailersend.com/
-  - type: Email Endpoint
-    url: https://developers.mailersend.com/api/v1/email.html
+  - type: APIReference
+    url: https://developers.mailersend.com/api/v1/email
 - aid: mailersend:mailersend-bulk-email-api
   name: MailerSend Bulk Email API
   description: The Bulk Email API from MailerSend — 2 operation(s) for bulk email.
@@ -55,6 +70,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-bulk-email-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-bulk-email-api-overlay.yaml
 - aid: mailersend:mailersend-domains-api
   name: MailerSend Domains API
   description: The Domains API from MailerSend — 2 operation(s) for domains.
@@ -65,6 +82,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-domains-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-domains-api-overlay.yaml
 - aid: mailersend:mailersend-email-api
   name: MailerSend Email API
   description: The Email API from MailerSend — 1 operation(s) for email.
@@ -75,6 +94,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-email-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-email-api-overlay.yaml
 - aid: mailersend:mailersend-messages-api
   name: MailerSend Messages API
   description: The Messages API from MailerSend — 2 operation(s) for messages.
@@ -85,6 +106,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-messages-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-messages-api-overlay.yaml
 - aid: mailersend:mailersend-sender-identities-api
   name: MailerSend Sender Identities API
   description: The Sender Identities API from MailerSend — 1 operation(s) for sender identities.
@@ -95,6 +118,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-sender-identities-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-sender-identities-api-overlay.yaml
 - aid: mailersend:mailersend-templates-api
   name: MailerSend Templates API
   description: The Templates API from MailerSend — 2 operation(s) for templates.
@@ -105,6 +130,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-templates-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-templates-api-overlay.yaml
 - aid: mailersend:mailersend-webhooks-api
   name: MailerSend Webhooks API
   description: The Webhooks API from MailerSend — 2 operation(s) for webhooks.
@@ -115,6 +142,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/mailersend-webhooks-api-openapi.yml
+  - type: Overlay
+    url: overlays/mailersend-webhooks-api-overlay.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/mailersend-agentic-access.yml
@@ -136,6 +165,75 @@ common:
     url: rate-limits/mailersend-rate-limits.yml
   - type: FinOps
     url: finops/mailersend-finops.yml
+  - type: DeveloperPortal
+    url: https://developers.mailersend.com/
+  - type: APIReference
+    url: https://developers.mailersend.com/api/v1/email
+  - type: GettingStarted
+    url: https://developers.mailersend.com/sdk
+  - type: Support
+    url: https://www.mailersend.com/help
+  - type: Pricing
+    url: https://www.mailersend.com/pricing
+  - type: PrivacyPolicy
+    url: https://www.mailersend.com/legal/privacy-policy
+  - type: StatusPage
+    url: https://status.mailersend.com/
+  - type: Packages
+    url: packages/mailersend-packages.yml
+  - type: SDKs
+    url: packages/mailersend-packages.yml
+  - type: CLI
+    url: cli/mailersend-cli.yml
+  - type: MCPServer
+    url: mcp/mailersend-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/mailersend-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/mailersend-llms.txt
+  - type: WellKnown
+    url: well-known/mailersend-well-known.yml
+  - type: OAuthScopes
+    url: scopes/mailersend-scopes.yml
+  - type: Conventions
+    url: conventions/mailersend-conventions.yml
+  - type: ErrorCatalog
+    url: errors/mailersend-problem-types.yml
+  - type: ErrorCodes
+    url: errors/mailersend-error-codes.yml
+  - type: Lifecycle
+    url: lifecycle/mailersend-lifecycle.yml
+  - type: Conformance
+    url: conformance/mailersend-conformance.yml
+  - type: DataModel
+    url: data-model/mailersend-data-model.yml
+  - type: Webhooks
+    url: asyncapi/mailersend-webhooks.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: docs-host-fully-open
+  detail: >-
+    developers.mailersend.com is entirely machine-readable (robots.txt allows all, 42-URL sitemap, a real
+    llms.txt) and yielded rate limits, quotas, scopes, error codes, webhook events, CLI and MCP surfaces;
+    the only wall was www.mailersend.com, which sits behind a Cloudflare "Just a moment..." bot challenge
+    returning HTTP 429 to every automated request, so pricing, legal and trust pages could not be read.
+  evidence:
+    - url: https://developers.mailersend.com/llms.txt
+      status: 200
+    - url: https://mcp.mailersend.com/.well-known/oauth-protected-resource
+      status: 200
+    - url: https://mcp.mailersend.com/mcp
+      status: 401
+    - url: https://www.mailersend.com/pricing
+      status: 429
+  checked: '2026-08-13'
