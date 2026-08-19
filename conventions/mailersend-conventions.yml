@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/general
+notes: >-
+  Cross-cutting request/response semantics for api.mailersend.com/v1, harvested from MailerSend's own
+  documentation and cross-checked against the OpenAPI in this repo.
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer <API token>'
+  token_prefix: mlsn.
+  scoped: true
+  note: >-
+    API tokens are issued per sending domain and carry an explicit scope list, so the token itself is the
+    permission boundary. See scopes/mailersend-scopes.yml and authentication/mailersend-authentication.yml.
+  docs: https://developers.mailersend.com/api/v1/account/tokens
+idempotency:
+  supported: false
+  note: >-
+    MailerSend documents no idempotency key, no request-replay window and no Idempotency-Key parameter
+    anywhere in its API reference; the word does not appear in the developer documentation. Retrying
+    POST /v1/email after a timeout can send a duplicate message. The nearest safeguards MailerSend does
+    offer are the domain-level "Ignore duplicated recipients" advanced setting (which suppresses the
+    MS42201 duplicate-recipient error) and the x-message-id response header, which lets a client
+    reconcile after the fact rather than prevent a duplicate.
+pagination:
+  style: page-number
+  params:
+    - name: page
+      in: query
+      type: integer
+      default: 1
+    - name: limit
+      in: query
+      type: integer
+      default: 25
+      min: 10
+      max: 100
+  response_envelope: data[]
+  note: Collection endpoints return a `data` array; page/limit are the universal pagination parameters.
+request:
+  content_type: application/json
+  base_url: https://api.mailersend.com/v1
+  versioning_in_path: true
+response:
+  content_type: application/json
+  collection_envelope: data (array)
+  single_envelope: data (object)
+  async_send: >-
+    POST /v1/email is asynchronous — it returns 202 Accepted with an `x-message-id` response header and no
+    body. Delivery outcome arrives via webhooks or the Messages/Activity endpoints, never on the send
+    response.
+  message_id_header: x-message-id
+error_envelope:
+  reference: errors/mailersend-problem-types.yml
+  rfc9457: false
+  shape: '{"message": "...", "errors": {"<field>": ["<message> #MS<code>"]}}'
+  code_convention: '#MS-prefixed code appended to the message string'
+rate_limit_signaling:
+  reference: rate-limits/mailersend-rate-limits.yml
+  headers: [x-ratelimit-limit, x-ratelimit-remaining, x-ratelimit-reset, retry-after, x-apiquota-remaining, x-apiquota-reset]
+  exhausted_status: 429
+  budget_endpoint: GET https://api.mailersend.com/v1/api-quota
+versioning:
+  scheme: uri-path
+  current: v1
+  reference: lifecycle/mailersend-lifecycle.yml
+webhooks:
+  reference: asyncapi/mailersend-webhooks.yml
+  signature_header: Signature
+  retry: exponential backoff for approximately 3 days, then auto-pause
+maintenance_mode:
+  documented: true
+  events: [maintenance.start, maintenance.end]
+  docs: https://developers.mailersend.com/guides/handling-maintenance-modes
+  http_status: 421
+  note: >-
+    MailerSend returns HTTP 421 during scheduled maintenance and fires maintenance.start /
+    maintenance.end webhooks so clients can pause and resume sending.
+related:
+  authentication: authentication/mailersend-authentication.yml
+  errors: errors/mailersend-problem-types.yml
+  error_codes: errors/mailersend-error-codes.yml
+  lifecycle: lifecycle/mailersend-lifecycle.yml
+  rate_limits: rate-limits/mailersend-rate-limits.yml
+  scopes: scopes/mailersend-scopes.yml

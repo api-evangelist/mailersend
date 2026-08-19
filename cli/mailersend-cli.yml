@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/tools/cli
+repository: https://github.com/mailersend/mailersend-cli
+notes: >-
+  First-party CLI, written in Go, shipping as the binary `mailersend`. It is not a thin wrapper — it
+  covers nearly the whole API surface, adds multi-profile credential management, and includes an
+  interactive TUI dashboard. It is also the thing MailerSend's published Agent Skill drives, which makes
+  it the provider's actual agent-facing entry point alongside the MCP server.
+name: mailersend
+language: go
+latest_version: v1.0.6
+latest_published: '2026-02-19'
+install:
+  - method: homebrew
+    command: brew install --cask mailersend/tap/mailersend
+    tap: https://github.com/mailersend/homebrew-tap
+  - method: go-install
+    command: go install github.com/mailersend/mailersend-cli@latest
+  - method: github-releases
+    url: https://github.com/mailersend/mailersend-cli/releases
+    platforms: [linux, macos, windows]
+  - method: nix
+    command: nix profile install git+ssh://git@github.com/mailersend/mailersend-cli.git
+  - method: source
+    command: git clone https://github.com/mailersend/mailersend-cli.git && go build -o mailersend .
+    requires: Go 1.25+
+authentication:
+  methods:
+    - name: oauth
+      command: mailersend auth login
+      recommended: true
+      note: Opens a browser to authorize the CLI; tokens auto-refresh on expiry.
+    - name: api-token
+      command: mailersend auth login --method token
+      env_var: MAILERSEND_API_TOKEN
+  resolution_order: 'MAILERSEND_API_TOKEN env var > --profile flag > active profile > first profile'
+  commands: [auth login, auth status, auth logout]
+profiles:
+  supported: true
+  commands: [profile add, profile list, profile switch]
+  flag: --profile <name>
+global_flags:
+  - {flag: --json, description: Output raw JSON instead of formatted tables.}
+  - {flag: '--verbose, -v', description: Print HTTP request and response details.}
+  - {flag: --profile <name>, description: Use a specific auth profile.}
+  - {flag: '--help, -h', description: Show help for any command.}
+command_groups:
+  - {group: email, description: 'Send transactional email (inline, from file, from template, scheduled, tracked, tagged).'}
+  - {group: bulk-email, description: 'Send bulk email from a JSON file and check bulk send status.'}
+  - {group: domain, description: 'List, get, add, delete sending domains; show DNS records; verify; update settings.'}
+  - {group: recipient, description: List, get and delete recipients.}
+  - {group: identity, description: 'Manage sender identities by ID or by email address.'}
+  - {group: template, description: Manage email templates.}
+  - {group: message, description: List and inspect sent messages.}
+  - {group: activity, description: Query email activity events.}
+  - {group: analytics, description: Query analytics by date, country and user agent.}
+  - {group: webhook, description: Manage webhooks.}
+  - {group: suppression, description: Manage blocklist, hard bounces, spam complaints, unsubscribes and on-hold lists.}
+  - {group: inbound, description: Manage inbound routes.}
+  - {group: token, description: Manage API tokens.}
+  - {group: user, description: Manage account users and invites.}
+  - {group: smtp-user, description: Manage SMTP users.}
+  - {group: verification, description: Single and list email verification.}
+  - {group: quota, description: Read the account's remaining daily API quota.}
+  - {group: sms, description: Send SMS and manage numbers, messages, activity, recipients, webhooks and inbounds.}
+  - {group: profile, description: Manage named auth profiles.}
+  - {group: auth, description: Log in, check status, log out.}
+features:
+  interactive_dashboard: >-
+    A TUI dashboard for monitoring email activity, analytics, domains and suppressions in real time.
+  json_output: 'Every command accepts --json for machine-readable output.'
+  shell_completion: documented
+  domain_name_resolution: >-
+    Commands accept a domain name where the API expects a domain ID, resolving it for the caller.
+agent_skill:
+  published: true
+  url: https://github.com/mailersend/mailersend-skills
+  skill: skills/mailersend-cli/SKILL.md
+  note: MailerSend's own Agent Skill teaches an agent to drive this CLI.

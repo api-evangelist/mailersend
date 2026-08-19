@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/api/v1/account/webhooks
+spec_type: Webhooks
+asyncapi_published: false
+notes: MailerSend publishes no AsyncAPI document — no /asyncapi.yaml on any host, nothing in the GitHub org, no
+  event-catalog page. It does publish a complete, documented webhook catalog with signed delivery, retry semantics
+  and per-event payload examples, which is captured here as the event surface. Do not read the absence of AsyncAPI
+  as an absence of events.
+transport: HTTPS POST to a subscriber-registered URL
+management_api:
+  docs: https://developers.mailersend.com/api/v1/account/webhooks
+  sms_webhooks_docs: https://developers.mailersend.com/api/v1/sms/webhooks
+  openapi: openapi/mailersend-webhooks-api-openapi.yml
+  operations:
+  - listWebhooks
+  - createWebhook
+  - deleteWebhook
+security:
+  signature_header: Signature
+  algorithm: HMAC-SHA256, hex-encoded, computed over the raw request body
+  secret: per-webhook Signing Secret generated when the webhook is created
+  comparison: constant-time comparison (documented in every SDK example)
+  test_secret_published: true
+  test_secret_note: MailerSend publishes a fixed test signing secret used only for the webhook.test ping request.
+delivery:
+  url_validation: On create/update MailerSend POSTs a webhook.test ping; the endpoint must answer 2xx or the webhook
+    is not saved.
+  ping_payload:
+    type: webhook.test
+    message: This is a ping test message
+  retry: Exponential backoff for approximately 3 days on any non-2xx or unreachable endpoint.
+  failure_notifications: Escalating email notifications while the endpoint is failing.
+  auto_pause: A webhook that stays down too long is automatically paused and must be re-enabled from the dashboard.
+event_count: 23
+events:
+- event: activity.sent
+  description: Fired when your email is sent from our sending servers. We are now waiting for a response from the
+    receiving servers.
+- event: activity.delivered
+  description: Fired when your email is successfully delivered with no errors.
+- event: activity.soft_bounced
+  description: Fired when your email is not delivered because it soft bounced.
+- event: activity.hard_bounced
+  description: Fired when your email is not delivered.
+- event: activity.deferred
+  description: Fired when your email is temporarily delayed. Please note that this is available to Paid plans only
+- event: activity.opened
+  description: Fired when the recipient receives your email and opens it.
+- event: activity.opened_unique
+  description: Fired when the recipient receives your email and opens it only for the first time.
+- event: activity.clicked
+  description: Fired when the recipient clicks a link in your email.
+- event: activity.clicked_unique
+  description: Fired when the recipient clicks a link in your email only for the first time.
+- event: activity.unsubscribed
+  description: Fired when the recipient unsubscribes from your emails.
+- event: activity.spam_complaint
+  description: Fired when the recipient marks your emails as spam or junk.
+- event: activity.survey_opened
+  description: Fired when the recipient opens an email containting a survey for the first time.
+- event: activity.survey_submitted
+  description: Fired when the recipient answers all available questions in a survey based email or after an idle
+    time of 30 minutes.
+- event: sender_identity.verified
+  description: Fired when the sender identity has been successfully verified.
+- event: maintenance.start
+  description: Fired when the maintenance period begins. (More info in Handling Maintenance Modes).
+- event: maintenance.end
+  description: Fired when the maintenance period ends. (More info in Handling Maintenance Modes).
+- event: inbound_forward.failed
+  description: Fired when an inbound message fail to forward.
+- event: inbound_message.rejected
+  description: 'Fired when an inbound message is rejected. Possible reasons: unsupported_attachment_type, attachment_size_exceeded.'
+- event: email_single.verified
+  description: Fired when single email has been successfully verified.
+- event: email_list.verified
+  description: Fired when email verification list has been successfully verified.
+- event: bulk_email.completed
+  description: Fired when bulk email sending has been successfully completed.
+- event: recipient.on_hold_added
+  description: Fired when recipient is added to on-hold suppression list.
+- event: recipient.on_hold_removed
+  description: Fired when recipient is removed from on-hold suppression list.
+payload_envelope:
+  fields:
+  - type
+  - created_at
+  - data
+  note: '`type` carries the event name, `data` the resource object; the ping payload uses `message` instead of `data`.'

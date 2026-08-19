@@ -4,32 +4,110 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: MailerSend
 providerId: mailersend
 created: '2026-05-08'
-modified: '2026-05-08'
-reconciled: false
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/general
+reconciled: true
 tags:
-- Email
-- Transactional
-- SMS
-- Templates
-- API
-- Rate Limiting
-- Quotas
-- Throttling
-description: Placeholder rate-limit artifact for MailerSend. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+  - Email
+  - Transactional
+  - SMS
+  - Templates
+  - API
+  - Rate Limiting
+  - Quotas
+  - Throttling
+description: >-
+  MailerSend publishes two independent throttles on api.mailersend.com/v1: a per-minute rate limit that
+  varies by endpoint, and a per-account daily request quota that varies by plan. Both surface as HTTP 429
+  and both are signalled in response headers on every request, so an agent can read remaining budget
+  without waiting to be rejected.
+notes: >-
+  Harvested verbatim from the "Rate limits" and "Daily request quota" sections of the General API
+  resources page. The quota endpoint GET /v1/api-quota reports quota/remaining/reset and does not itself
+  count against the quota.
 sources:
-- https://www.mailersend.com/
+  - https://developers.mailersend.com/general
+  - https://developers.mailersend.com/guides/checking-api-quota
 responseCodes:
   throttled: 429
+  message_rate_limit: 'Your account reached its rate limit of {limit} requests/min. Please wait before trying again. #MS42903'
+  message_quota: 'Your account reached its API daily quota limit. Upgrade to increase it. #MS42901'
+headers:
+  rate_limit:
+    - name: x-ratelimit-limit
+      description: Requests permitted in the current one-minute window.
+    - name: x-ratelimit-remaining
+      description: Requests left in the current one-minute window.
+    - name: x-ratelimit-reset
+      description: Unix timestamp at which the one-minute window resets.
+    - name: retry-after
+      description: Seconds the client must wait before retrying after a 429.
+  daily_quota:
+    - name: x-apiquota-remaining
+      description: Requests remaining in the account's daily quota.
+    - name: x-apiquota-reset
+      description: ISO 8601 timestamp at which the daily quota resets (midnight UTC).
+quota_endpoint:
+  method: GET
+  url: https://api.mailersend.com/v1/api-quota
+  counts_against_quota: false
+  response_fields: [quota, remaining, reset]
+  docs: https://developers.mailersend.com/guides/checking-api-quota
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  - name: General API requests
+    scope: account
+    metric: requests
+    limit: 60
+    window: minute
+    endpoints: all endpoints except the email endpoints listed below
+  - name: Email send
+    scope: account
+    metric: requests
+    limit: 120
+    window: minute
+    endpoints: POST /v1/email
+  - name: Bulk email send
+    scope: account
+    metric: requests
+    limit: 10
+    window: minute
+    endpoints: POST /v1/bulk-email
+  - name: Activity
+    scope: account
+    metric: requests
+    limit: 10
+    window: minute
+    endpoints: GET /v1/activity
+  - name: SMTP
+    scope: account
+    metric: requests
+    limit: 120
+    window: minute
+    endpoints: SMTP relay
+daily_quotas:
+  - plan: Trial
+    requests_per_day: 100
+  - plan: Hobby
+    requests_per_day: 1000
+  - plan: Starter
+    requests_per_day: 100000
+  - plan: Professional
+    requests_per_day: 500000
+  - plan: Enterprise
+    requests_per_day: 500000
+quota_reset: daily at midnight UTC
+limit_count: 5
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  - name: Retry-After
+    description: >-
+      On 429 the client must wait the number of seconds given in the retry-after header before retrying;
+      MailerSend documents exponential backoff with jitter as the recommended client behaviour.
+  - name: Avoid failed validation
+    description: MailerSend advises against repeating requests that fail 422 validation, as they consume quota.
+  - name: Use bulk endpoint
+    description: High-volume senders are directed to POST /v1/bulk-email rather than looping POST /v1/email.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

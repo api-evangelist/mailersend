@@ -1,0 +1,87 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/, https://developers.mailersend.com/general, well-known/mailersend-oauth-authorization-server.json
+notes: >-
+  Cross-cutting standards conformance, derived from the captured OpenAPI and MailerSend's own
+  documentation. This file asserts standards conformance only. It does NOT assert a compliance program:
+  no SOC 2 / ISO 27001 / HIPAA / GDPR posture could be verified, because MailerSend's trust and legal
+  pages live on www.mailersend.com, which returned HTTP 429 behind a Cloudflare bot challenge to every
+  automated request in this pass. No Compliance pointer is emitted.
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: openapi/_original/mailersend-openapi.yml declares openapi 3.1.0
+    caveat: >-
+      The spec in this repo is an API Evangelist best-effort document built from MailerSend's
+      documentation, not a spec MailerSend publishes. MailerSend ships no machine-readable API contract.
+  - id: rest
+    conforms: true
+    evidence: 'MailerSend states it "follows the REST architectural style and conforms to generic HTTP response standards".'
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are plain application/json with a `message` string and an optional `errors` field map; no
+      application/problem+json media type, no type/title/status/detail members.
+  - id: oauth2
+    conforms: true
+    scope: mcp-server-only
+    evidence: >-
+      mcp.mailersend.com is an OAuth 2.1 authorization server with authorize/token/register endpoints and
+      PKCE S256. The REST API itself is bearer-token, not OAuth.
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    evidence: 'https://mcp.mailersend.com/.well-known/oauth-authorization-server returns 200 with valid AS metadata.'
+  - id: rfc9728-protected-resource-metadata
+    conforms: true
+    evidence: 'https://mcp.mailersend.com/.well-known/oauth-protected-resource returns 200; 401 responses carry a conformant WWW-Authenticate Bearer challenge with resource_metadata.'
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: registration_endpoint https://mcp.mailersend.com/register advertised in AS metadata
+  - id: rfc7636-pkce
+    conforms: true
+    evidence: 'code_challenge_methods_supported: ["S256"]'
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any MailerSend host.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Streamable HTTP MCP server at https://mcp.mailersend.com/mcp, documented for Claude, Claude Code,
+      Gemini CLI, VS Code, Cursor and ChatGPT; 127 tools published.
+  - id: agent-skills
+    conforms: true
+    evidence: >-
+      github.com/mailersend/mailersend-skills publishes a skill following the Agent Skills specification
+      (agentskills.io/specification), distributed as a Claude Code plugin marketplace.
+  - id: a2a
+    conforms: false
+    evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host.
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document published; webhook catalog documented in prose (asyncapi/mailersend-webhooks.yml).
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: 404 on developers/mcp hosts, 403 on api host; www host unreadable (429).
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset/Deprecation header or deprecation policy documented.
+  - id: rfc6750-bearer-token
+    conforms: true
+    evidence: 'Authorization: Bearer <token> on every REST request.'
+  - id: hmac-webhook-signing
+    conforms: true
+    evidence: 'Signature header carrying HMAC-SHA256 (hex) of the raw body under a per-webhook signing secret.'
+  - id: dmarc
+    conforms: true
+    scope: product-capability
+    evidence: >-
+      MailerSend ships a DMARC Monitoring API (aggregate report ingestion per monitored domain) and its own
+      sending domain publishes SPF and a DMARC record with p=reject.
+  - id: pagination
+    conforms: true
+    evidence: 'Uniform page/limit query parameters with a `data` array envelope (limit min 10, max 100, default 25).'
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key, no replay window, no Idempotency-Key parameter documented anywhere; the term does
+      not appear in the developer documentation.

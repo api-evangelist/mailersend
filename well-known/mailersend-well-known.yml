@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every MailerSend host in apis.yml + OpenAPI servers[]
+notes: >-
+  Two real documents are served, both by the MCP host: RFC 8414 authorization-server metadata and
+  RFC 9728 protected-resource metadata. The API host (api.mailersend.com) answers 403 on every
+  /.well-known/* path, the docs host answers 404 (Next.js error shell), and the marketing host
+  (www.mailersend.com) is behind a Cloudflare bot challenge that returned 429 to every automated
+  request in this pass — so its /.well-known/ surface is unknown, not proven absent.
+hosts:
+  - host: https://mcp.mailersend.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: mailersend-oauth-authorization-server.json
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: mailersend-oauth-protected-resource.json
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://api.mailersend.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+  - host: https://developers.mailersend.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://www.mailersend.com
+    unreadable: true
+    reason: >-
+      Cloudflare interstitial ("Just a moment...") returned HTTP 429 with an HTML challenge body on
+      every path, including /robots.txt. No /.well-known/ conclusion can be drawn for this host.
+    documents:
+      - path: /.well-known/security.txt
+        status: 429
+      - path: /.well-known/openid-configuration
+        status: 429
+      - path: /.well-known/oauth-authorization-server
+        status: 429
+      - path: /.well-known/oauth-protected-resource
+        status: 429
+      - path: /.well-known/api-catalog
+        status: 429
+      - path: /.well-known/ai-plugin.json
+        status: 429
+      - path: /.well-known/agent-card.json
+        status: 429
+      - path: /.well-known/agent.json
+        status: 429
+security_txt: false
+agent_card: false

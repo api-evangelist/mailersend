@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MailerSend Bulk Email Sender Identities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sender Identities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sender identities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/identities"
+          },
+          "docs": "List sender identities"
+        },
+        {
+          "info": {
+            "name": "Create sender identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/identities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create sender identity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

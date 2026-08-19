@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MailerSend Bulk Email API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bulk Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send bulk emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.mailersend.com/v1/bulk-email",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send up to 500 emails per request (paid plans). Returns a `bulk_email_id` for status queries."
+        },
+        {
+          "info": {
+            "name": "Get bulk email status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.mailersend.com/v1/bulk-email/:bulk_email_id",
+            "params": [
+              {
+                "name": "bulk_email_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get bulk email status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

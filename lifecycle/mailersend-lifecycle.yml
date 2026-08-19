@@ -1,0 +1,66 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/general
+notes: >-
+  MailerSend runs a single, unversioned-beyond-v1 API. There is no published deprecation policy, no
+  Sunset/Deprecation header support documented (RFC 8594), no dated changelog on the developer host, and
+  no published SLA document reachable in this pass. What it does publish is a real status page and a
+  documented maintenance-mode contract, which is the operational transparency it actually has.
+versioning:
+  scheme: uri-path
+  current: v1
+  base_url: https://api.mailersend.com/v1
+  docs: https://developers.mailersend.com/general
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published on developers.mailersend.com, and no operation in the
+    captured OpenAPI is marked deprecated. Recorded as absent, not assumed.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No SLA document was reachable. MailerSend's SLA/legal pages live on www.mailersend.com, which returned
+    HTTP 429 behind a Cloudflare bot challenge to every automated request in this pass.
+status_page:
+  url: https://status.mailersend.com/
+  provider: incident.io
+  api: https://status.mailersend.com/api/v2/summary.json
+  feeds:
+    - https://status.mailersend.com/feed.atom
+    - https://status.mailersend.com/feed.rss
+    - https://status.mailersend.com/history.rss
+  components:
+    - Email sending API
+    - Bulk endpoint
+    - SMTP
+    - Email analytics
+    - Email activity
+    - Inbound routing
+    - Delivery time
+    - Deliverability rate
+    - MailerSend APP
+    - Website
+  observed:
+    fetched: '2026-08-13'
+    http_status: 200
+    indicator: none
+    description: All Systems Operational
+maintenance:
+  documented: true
+  docs: https://developers.mailersend.com/guides/handling-maintenance-modes
+  http_status: 421
+  events: [maintenance.start, maintenance.end]
+  note: >-
+    MailerSend signals planned maintenance both in-band (HTTP 421 with a "Service isn't available, try
+    again later" body) and out-of-band (maintenance.start / maintenance.end webhooks), which is a stronger
+    runtime contract than most providers ship.
+changelog:
+  url: null
+  note: >-
+    No changelog page exists on developers.mailersend.com (the sitemap lists 42 URLs, none of them a
+    changelog) and /changelog returns 404. Product release notes, if any, live on the marketing host,
+    which was unreachable.
+deprecated_operations: []

@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/api/v1/account/tokens
+docs: https://developers.mailersend.com/api/v1/account/tokens#possible-scopes
+notes: >-
+  MailerSend has two separate authorization surfaces and they do not share a scope vocabulary.
+  (1) The REST API uses long-lived API tokens issued per sending domain, each carrying an explicit list
+  from the fixed scope vocabulary below — that list is set at POST /v1/token time and is the permission
+  boundary for every request made with the token. A request outside the token's scopes returns MS40301.
+  (2) The MCP server at mcp.mailersend.com is a real OAuth 2.1 authorization server (RFC 8414 metadata,
+  dynamic client registration, PKCE S256) but publishes no `scopes_supported` in its metadata, so its
+  scope vocabulary is not discoverable anonymously.
+  derive-oauth-scopes.py found no oauth2 securityScheme in the captured OpenAPI, which is correct — the
+  REST API is bearer-token, not OAuth. This artifact is searched, not derived.
+schemes:
+  - name: APIToken
+    type: apiKey-scoped
+    source: https://developers.mailersend.com/api/v1/account/tokens
+    issued_per: sending domain
+    assignment: 'POST /v1/token with a scopes[] array'
+    enforcement_error: MS40301
+  - name: MCPOAuth
+    type: oauth2
+    source: https://mcp.mailersend.com/.well-known/oauth-authorization-server
+    issuer: https://mcp.mailersend.com
+    authorizationUrl: https://mcp.mailersend.com/authorize
+    tokenUrl: https://mcp.mailersend.com/token
+    registrationUrl: https://mcp.mailersend.com/register
+    grant_types: [authorization_code, refresh_token]
+    code_challenge_methods: [S256]
+    scopes_supported: null
+    note: >-
+      The authorization-server metadata document omits scopes_supported; the granted scope set cannot be
+      enumerated without completing an authorization flow. Recorded as unknown rather than guessed.
+scope_count: 30
+scopes:
+  - {scope: email_full, surface: api-token, description: Full access to the email sending endpoints.}
+  - {scope: domains_read, surface: api-token, description: Read sending domains.}
+  - {scope: domains_full, surface: api-token, description: Read and manage sending domains.}
+  - {scope: activity_read, surface: api-token, description: Read email activity.}
+  - {scope: activity_full, surface: api-token, description: Read and manage email activity.}
+  - {scope: analytics_read, surface: api-token, description: Read email analytics.}
+  - {scope: analytics_full, surface: api-token, description: Read and manage email analytics.}
+  - {scope: tokens_full, surface: api-token, description: Read and manage API tokens.}
+  - {scope: webhooks_full, surface: api-token, description: Read and manage webhooks.}
+  - {scope: templates_full, surface: api-token, description: Read and manage email templates.}
+  - {scope: suppressions_read, surface: api-token, description: Read suppression lists.}
+  - {scope: suppressions_full, surface: api-token, description: Read and manage suppression lists.}
+  - {scope: sms_read, surface: api-token, description: Read SMS resources.}
+  - {scope: sms_full, surface: api-token, description: Read and manage SMS resources.}
+  - {scope: email_verification_read, surface: api-token, description: Read email verification lists and results.}
+  - {scope: email_verification_full, surface: api-token, description: Read and manage email verification.}
+  - {scope: inbounds_full, surface: api-token, description: Read and manage inbound routes.}
+  - {scope: recipients_read, surface: api-token, description: Read recipients.}
+  - {scope: recipients_full, surface: api-token, description: Read and manage recipients.}
+  - {scope: sender_identity_read, surface: api-token, description: Read sender identities.}
+  - {scope: sender_identity_full, surface: api-token, description: Read and manage sender identities.}
+  - {scope: users_read, surface: api-token, description: Read account users.}
+  - {scope: users_full, surface: api-token, description: Read and manage account users.}
+  - {scope: smtp_users_read, surface: api-token, description: Read SMTP users.}
+  - {scope: smtp_users_full, surface: api-token, description: Read and manage SMTP users.}
+  - {scope: dmarc_monitoring_read, surface: api-token, description: Read DMARC monitors and reports.}
+  - {scope: dmarc_monitoring_full, surface: api-token, description: Read and manage DMARC monitoring.}
+  - {scope: blocklist_monitoring_read, surface: api-token, description: Read blocklist monitors.}
+  - {scope: blocklist_monitoring_full, surface: api-token, description: Read and manage blocklist monitoring.}
+  - {scope: whatsapp_full, surface: api-token, description: Full access to WhatsApp messaging resources.}
+pattern:
+  shape: '<resource>_read | <resource>_full'
+  note: >-
+    A clean two-level read/full split per resource domain. Note the asymmetry: email, tokens, webhooks,
+    templates, inbounds and whatsapp expose only `_full` — there is no read-only scope for sending, for
+    template access, or for token introspection, so a least-privilege agent cannot be given read-only
+    visibility into those domains.

@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/general
+format: vendor-json
+notes: 'MailerSend does not use RFC 9457 application/problem+json. Errors are returned as plain application/json.
+  Validation failures (422) use an envelope of {"message": ..., "errors": {"<field>": ["<message> #MS4xxxx"]}} —
+  the machine-readable code is the #MS-prefixed token appended to the human message string, not a discrete field.
+  Business errors carry the same #MS code inside "message".'
+envelope:
+  generic:
+    fields:
+    - message
+    example:
+      message: 'Your account reached its rate limit of 120 requests/min. Please wait before trying again. #MS42903'
+  validation:
+    status: 422
+    fields:
+    - message
+    - errors
+    example:
+      message: The given data was invalid.
+      errors:
+        from.email:
+        - 'The from.email domain must be verified in your account to send emails. #MS42207'
+  code_location: suffix "#MS<code>" appended to the message string
+http_status_codes:
+- status: 400
+  title: Bad Request
+  description: There was an error when processing your request. Please adjust your request based on the endpoint
+    requirements and try again.
+- status: 401
+  title: Unauthorized
+  description: The provided API token is invalid. Read more
+- status: 403
+  title: Forbidden
+  description: The action is denied for that account or a particular API token. Please make sure your account is
+    allowed API access and check your API token permissions. Read more
+- status: 404
+  title: Not Found
+  description: The requested resource does not exist on the system.
+- status: 405
+  title: Method Not Allowed
+  description: HTTP method is not supported by the requested endpoint.
+- status: 408
+  title: Request Timeout
+  description: There is an error on our system. Please contact support
+- status: 421
+  title: Service isn't available, try again later
+  description: We are currently running maintenance.
+- status: 422
+  title: Unprocessable Entity
+  description: There was a validation error found when processing the request. Please adjust it based on the endpoint
+    requirements and try again. Read more
+- status: 429
+  title: Too Many Requests
+  description: There were too many requests made to the API. Read more on rate limits and daily request quota.
+- status: 500
+  title: Internal Server Error
+  description: There was an error on our system. Please contact support
+- status: 502
+  title: Bad Gateway
+  description: There was an error on our system. Please contact support
+- status: 503
+  title: Service Unavailable
+  description: There was an error on our system. Please contact support
+- status: 504
+  title: Gateway Timeout
+  description: There was an error on our system. Please contact support
+problem_count: 13
+error_code_catalog: errors/mailersend-error-codes.yml
+related:
+  conventions: conventions/mailersend-conventions.yml
+  rate_limits: rate-limits/mailersend-rate-limits.yml

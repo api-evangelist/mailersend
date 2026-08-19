@@ -1,0 +1,436 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/mcp
+status: published
+deployment:
+  mode: remote
+  endpoint: https://mcp.mailersend.com/mcp
+  auth: oauth
+  verified: probed
+server:
+  name: mailersend
+  transport: streamable-http
+  url: https://mcp.mailersend.com/mcp
+  docs: https://developers.mailersend.com/mcp
+  examples: https://developers.mailersend.com/mcp/examples
+  contact: mcp@mailersend.com
+authorization:
+  scheme: OAuth 2.1 (RFC 8414 + RFC 9728 discovery)
+  protected_resource_metadata: https://mcp.mailersend.com/.well-known/oauth-protected-resource
+  authorization_server_metadata: https://mcp.mailersend.com/.well-known/oauth-authorization-server
+  issuer: https://mcp.mailersend.com
+  authorization_endpoint: https://mcp.mailersend.com/authorize
+  token_endpoint: https://mcp.mailersend.com/token
+  registration_endpoint: https://mcp.mailersend.com/register
+  grant_types:
+  - authorization_code
+  - refresh_token
+  pkce:
+  - S256
+  dynamic_client_registration: true
+x-evidence:
+  fetched: '2026-08-13'
+  tools_list_probe:
+    url: https://mcp.mailersend.com/mcp
+    method: POST jsonrpc tools/list
+    http_status: 401
+    www_authenticate: Bearer realm="OAuth", resource_metadata="https://mcp.mailersend.com/.well-known/oauth-protected-resource/mcp"
+    note: Live tools/list is OAuth-gated. The tool list below is the provider-published catalog from the
+      MCP docs page (names + descriptions only); inputSchema requires authenticated introspection.
+  discovery_probes:
+  - url: https://mcp.mailersend.com/.well-known/oauth-protected-resource
+    http_status: 200
+  - url: https://mcp.mailersend.com/.well-known/oauth-authorization-server
+    http_status: 200
+clients_documented:
+- Claude Desktop
+- Claude web
+- Claude Code
+- Gemini CLI
+- VS Code
+- Cursor
+- ChatGPT (developer mode connectors)
+tool_count: 127
+tool_schemas: auth-gated — names and descriptions harvested from docs, input schemas not observed
+tools:
+- name: send_email
+  category: Email Management
+  description: Send a single email with templates, personalization, and attachments
+- name: send_bulk_email
+  category: Email Management
+  description: Send multiple emails in a single request
+- name: get_bulk_email_status
+  category: Email Management
+  description: Get the status of a bulk email send
+- name: list_domains
+  category: Domain Management
+  description: List all sending domains
+- name: get_domain
+  category: Domain Management
+  description: Get details of a specific domain
+- name: add_domain
+  category: Domain Management
+  description: Add a new sending domain
+- name: delete_domain
+  category: Domain Management
+  description: Delete a domain
+- name: get_domain_recipients
+  category: Domain Management
+  description: Get recipients for a domain
+- name: update_domain_settings
+  category: Domain Management
+  description: Update domain settings
+- name: get_dns_records
+  category: Domain Management
+  description: Get DNS records for domain verification
+- name: verify_domain
+  category: Domain Management
+  description: Verify domain DNS configuration
+- name: list_smtp_users
+  category: SMTP User Management
+  description: List SMTP users for a domain
+- name: get_smtp_user
+  category: SMTP User Management
+  description: Get details of a specific SMTP user
+- name: create_smtp_user
+  category: SMTP User Management
+  description: Add a new SMTP user to a domain
+- name: update_smtp_user
+  category: SMTP User Management
+  description: Update an SMTP user
+- name: delete_smtp_user
+  category: SMTP User Management
+  description: Delete an SMTP user
+- name: list_messages
+  category: Message Management
+  description: List sent messages with filtering
+- name: get_message
+  category: Message Management
+  description: Get details of a specific message
+- name: list_scheduled_messages
+  category: Message Management
+  description: List scheduled messages
+- name: get_scheduled_message
+  category: Message Management
+  description: Get details of a scheduled message
+- name: delete_scheduled_message
+  category: Message Management
+  description: Delete/cancel a scheduled message
+- name: list_templates
+  category: Template Management
+  description: List email templates
+- name: get_template
+  category: Template Management
+  description: Get template details and content
+- name: create_template
+  category: Template Management
+  description: Create a new email template
+- name: update_template
+  category: Template Management
+  description: Update an email template (API-created templates only)
+- name: delete_template
+  category: Template Management
+  description: Delete a template
+- name: list_webhooks
+  category: Webhook Management
+  description: List all webhooks
+- name: get_webhook
+  category: Webhook Management
+  description: Get webhook details
+- name: create_webhook
+  category: Webhook Management
+  description: Create a new webhook
+- name: update_webhook
+  category: Webhook Management
+  description: Update webhook configuration
+- name: delete_webhook
+  category: Webhook Management
+  description: Delete a webhook
+- name: list_inbound_routes
+  category: Inbound Routing
+  description: List inbound routes
+- name: get_inbound_route
+  category: Inbound Routing
+  description: Get inbound route details
+- name: create_inbound_route
+  category: Inbound Routing
+  description: Add a new inbound route to a domain
+- name: update_inbound_route
+  category: Inbound Routing
+  description: Update an inbound route
+- name: delete_inbound_route
+  category: Inbound Routing
+  description: Delete an inbound route
+- name: list_recipients
+  category: Recipient Management
+  description: List recipients in your account
+- name: get_recipient
+  category: Recipient Management
+  description: Get recipient details
+- name: delete_recipient
+  category: Recipient Management
+  description: Delete a recipient
+- name: list_blocklist
+  category: Suppression Management
+  description: List blocklist entries (account or domain)
+- name: list_hard_bounces
+  category: Suppression Management
+  description: List hard-bounced recipients
+- name: list_spam_complaints
+  category: Suppression Management
+  description: List spam complaints
+- name: list_unsubscribes
+  category: Suppression Management
+  description: List unsubscribed recipients
+- name: list_on_hold
+  category: Suppression Management
+  description: List on-hold recipients
+- name: add_to_blocklist
+  category: Suppression Management
+  description: Add recipients or patterns to the blocklist
+- name: add_to_hard_bounces
+  category: Suppression Management
+  description: Add a hard bounce for recipients
+- name: add_to_spam_complaints
+  category: Suppression Management
+  description: Add a spam complaint for recipients
+- name: add_to_unsubscribes
+  category: Suppression Management
+  description: Set recipients as unsubscribed
+- name: delete_from_blocklist
+  category: Suppression Management
+  description: Delete blocklist entries
+- name: delete_from_hard_bounces
+  category: Suppression Management
+  description: Delete hard bounce entries
+- name: delete_from_spam_complaints
+  category: Suppression Management
+  description: Delete spam complaint entries
+- name: delete_from_unsubscribes
+  category: Suppression Management
+  description: Delete unsubscribe entries
+- name: delete_from_on_hold
+  category: Suppression Management
+  description: Delete on-hold entries
+- name: list_activities
+  category: Activity Management
+  description: List email activity events
+- name: get_activity
+  category: Activity Management
+  description: Get specific activity details
+- name: get_analytics_by_date
+  category: Analytics Management
+  description: Get email analytics by date range
+- name: get_analytics_by_country
+  category: Analytics Management
+  description: Get email opens grouped by country
+- name: get_analytics_by_user_agent_name
+  category: Analytics Management
+  description: Get email opens grouped by user-agent name
+- name: get_analytics_by_user_agent_type
+  category: Analytics Management
+  description: Get email opens grouped by user-agent type
+- name: verify_email
+  category: Email Verification
+  description: Verify single email address
+- name: verify_email_async
+  category: Email Verification
+  description: Start async email verification
+- name: get_async_verification_status
+  category: Email Verification
+  description: Check async verification status
+- name: list_verification_lists
+  category: Email Verification
+  description: List email verification lists
+- name: get_verification_list
+  category: Email Verification
+  description: Get verification list details
+- name: create_verification_list
+  category: Email Verification
+  description: Create new verification list
+- name: verify_list
+  category: Email Verification
+  description: Start list verification
+- name: get_verification_results
+  category: Email Verification
+  description: Get verification results
+- name: list_dmarc_monitors
+  category: DMARC Monitoring
+  description: List DMARC monitors
+- name: create_dmarc_monitor
+  category: DMARC Monitoring
+  description: Create a DMARC monitor for a verified domain
+- name: update_dmarc_monitor
+  category: DMARC Monitoring
+  description: Update a DMARC monitor's wanted record
+- name: delete_dmarc_monitor
+  category: DMARC Monitoring
+  description: Delete a DMARC monitor
+- name: get_dmarc_aggregated_report
+  category: DMARC Monitoring
+  description: Get aggregated reports (per IP)
+- name: get_dmarc_ip_report
+  category: DMARC Monitoring
+  description: Get detailed reports for a specific IP
+- name: get_dmarc_report_sources
+  category: DMARC Monitoring
+  description: List reporting organizations for a monitor
+- name: favorite_dmarc_ip
+  category: DMARC Monitoring
+  description: Mark an IP as a favorite
+- name: unfavorite_dmarc_ip
+  category: DMARC Monitoring
+  description: Remove an IP from favorites
+- name: list_blocklist_monitors
+  category: Blocklist Monitoring
+  description: List blocklist monitors
+- name: get_blocklist_monitor
+  category: Blocklist Monitoring
+  description: Get monitor details and current hits
+- name: create_blocklist_monitor
+  category: Blocklist Monitoring
+  description: Create a monitor for a domain, IP, or CIDR block
+- name: update_blocklist_monitor
+  category: Blocklist Monitoring
+  description: Update a monitor's name or notification settings
+- name: delete_blocklist_monitor
+  category: Blocklist Monitoring
+  description: Delete a blocklist monitor
+- name: list_tokens
+  category: Token Management
+  description: List API tokens
+- name: get_token
+  category: Token Management
+  description: Get API token details
+- name: create_token
+  category: Token Management
+  description: Create an API token with scopes
+- name: update_token
+  category: Token Management
+  description: Update a token's name and/or status
+- name: delete_token
+  category: Token Management
+  description: Delete an API token
+- name: list_users
+  category: User & Invite Management
+  description: List account users
+- name: get_user
+  category: User & Invite Management
+  description: Get user details
+- name: invite_user
+  category: User & Invite Management
+  description: Invite a new user
+- name: update_user
+  category: User & Invite Management
+  description: Update a user's role, permissions, templates, or domains
+- name: delete_user
+  category: User & Invite Management
+  description: Delete a user
+- name: list_invites
+  category: User & Invite Management
+  description: List pending user invites
+- name: get_invite
+  category: User & Invite Management
+  description: Get invite details
+- name: resend_invite
+  category: User & Invite Management
+  description: Resend a pending invite
+- name: cancel_invite
+  category: User & Invite Management
+  description: Cancel a pending invite
+- name: list_identities
+  category: Sender Identity Management
+  description: List sender identities
+- name: create_identity
+  category: Sender Identity Management
+  description: Add a new sender identity
+- name: get_identity
+  category: Sender Identity Management
+  description: Get identity details by ID
+- name: update_identity
+  category: Sender Identity Management
+  description: Update an identity by ID
+- name: delete_identity
+  category: Sender Identity Management
+  description: Delete an identity by ID
+- name: get_identity_by_email
+  category: Sender Identity Management
+  description: Get identity details by email
+- name: update_identity_by_email
+  category: Sender Identity Management
+  description: Update an identity by email
+- name: delete_identity_by_email
+  category: Sender Identity Management
+  description: Delete an identity by email
+- name: resend_identity
+  category: Sender Identity Management
+  description: Resend the verification email for an identity
+- name: send_sms
+  category: SMS
+  description: Send an SMS message
+- name: list_sms_messages
+  category: SMS Messages
+  description: List SMS messages
+- name: get_sms_message
+  category: SMS Messages
+  description: Get an SMS message with sub-messages and activity
+- name: list_sms_activity
+  category: SMS Activity
+  description: List SMS activity, filterable by number/date/status
+- name: list_sms_numbers
+  category: SMS Numbers
+  description: List SMS phone numbers
+- name: get_sms_number
+  category: SMS Numbers
+  description: Get SMS phone number details
+- name: update_sms_number
+  category: SMS Numbers
+  description: Update an SMS number (e.g. pause/unpause)
+- name: delete_sms_number
+  category: SMS Numbers
+  description: Delete an SMS number
+- name: list_sms_recipients
+  category: SMS Recipients
+  description: List SMS recipients
+- name: get_sms_recipient
+  category: SMS Recipients
+  description: Get SMS recipient details
+- name: update_sms_recipient
+  category: SMS Recipients
+  description: Update an SMS recipient's status
+- name: list_sms_webhooks
+  category: SMS Webhooks
+  description: List SMS webhooks for a number
+- name: get_sms_webhook
+  category: SMS Webhooks
+  description: Get SMS webhook details
+- name: create_sms_webhook
+  category: SMS Webhooks
+  description: Create an SMS webhook
+- name: update_sms_webhook
+  category: SMS Webhooks
+  description: Update an SMS webhook
+- name: delete_sms_webhook
+  category: SMS Webhooks
+  description: Delete an SMS webhook
+- name: list_sms_inbounds
+  category: SMS Inbound
+  description: List SMS inbound routes
+- name: get_sms_inbound
+  category: SMS Inbound
+  description: Get SMS inbound route details
+- name: create_sms_inbound
+  category: SMS Inbound
+  description: Add an SMS inbound route
+- name: update_sms_inbound
+  category: SMS Inbound
+  description: Update an SMS inbound route
+- name: delete_sms_inbound
+  category: SMS Inbound
+  description: Delete an SMS inbound route
+- name: search
+  category: Search & Fetch
+  description: Search across resources
+- name: fetch
+  category: Search & Fetch
+  description: Fetch related data

@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/sdk
+notes: >-
+  MailerSend ships six official server-side SDKs (PHP, Node.js, Python, Go, Ruby, Java), an official
+  Laravel mail driver, and a Go CLI. Every version/published pair below was read from the registry
+  metadata endpoint on 2026-08-13 (registry.npmjs.org, pypi.org, rubygems.org, repo.packagist.org,
+  proxy.golang.org, search.maven.org).
+packages:
+  - language: javascript
+    registry: npm
+    name: mailersend
+    url: https://www.npmjs.com/package/mailersend
+    install: npm install mailersend
+    repository: https://github.com/mailersend/mailersend-nodejs
+    official: true
+    version: 3.2.0
+    published: '2026-08-10'
+  - language: php
+    registry: packagist
+    name: mailersend/mailersend
+    url: https://packagist.org/packages/mailersend/mailersend
+    install: composer require mailersend/mailersend
+    repository: https://github.com/mailersend/mailersend-php
+    official: true
+    version: v0.40.0
+    published: '2026-08-10'
+    note: >-
+      The PHP SDK requires a PSR-18 HTTP adapter alongside it
+      (composer require php-http/guzzle7-adapter nyholm/psr7).
+  - language: python
+    registry: pypi
+    name: mailersend
+    url: https://pypi.org/project/mailersend/
+    install: pip install mailersend
+    repository: https://github.com/mailersend/mailersend-python
+    official: true
+    version: 2.0.3
+    published: '2026-04-13'
+  - language: go
+    registry: go-modules
+    name: github.com/mailersend/mailersend-go
+    url: https://pkg.go.dev/github.com/mailersend/mailersend-go
+    install: go get github.com/mailersend/mailersend-go
+    repository: https://github.com/mailersend/mailersend-go
+    official: true
+    version: v1.6.6
+    published: '2026-08-13'
+  - language: ruby
+    registry: rubygems
+    name: mailersend-ruby
+    url: https://rubygems.org/gems/mailersend-ruby
+    install: gem install mailersend-ruby
+    repository: https://github.com/mailersend/mailersend-ruby
+    official: true
+    version: 3.1.0
+    published: '2026-04-24'
+  - language: java
+    registry: maven-central
+    name: com.mailersend:java-sdk
+    url: https://central.sonatype.com/artifact/com.mailersend/java-sdk
+    install: 'implementation ''com.mailersend:java-sdk:1.1.2'''
+    repository: https://github.com/mailersend/mailersend-java
+    official: true
+    version: 1.1.2
+    published: '2025-04-28'
+    note: >-
+      The SDK docs page still shows 1.0.0 in its Maven/Gradle snippet; Maven Central's latest is 1.1.2.
+  - language: php
+    registry: packagist
+    name: mailersend/laravel-driver
+    url: https://packagist.org/packages/mailersend/laravel-driver
+    install: composer require mailersend/laravel-driver
+    repository: https://github.com/mailersend/mailersend-laravel-driver
+    official: true
+    version: v3.2.0
+    published: '2026-06-25'
+    note: Official Laravel mail driver for MailerSend.
+  - language: go
+    registry: go-modules
+    name: github.com/mailersend/mailersend-cli
+    url: https://pkg.go.dev/github.com/mailersend/mailersend-cli
+    install: go install github.com/mailersend/mailersend-cli@latest
+    repository: https://github.com/mailersend/mailersend-cli
+    official: true
+    kind: cli
+    version: v1.0.6
+    published: '2026-02-19'
+    note: >-
+      The `mailersend` CLI binary. Also distributed via Homebrew
+      (brew install --cask mailersend/tap/mailersend), Nix, and GitHub Releases.
+      See cli/mailersend-cli.yml for the command surface.
+distribution_channels:
+  - name: Homebrew tap
+    url: https://github.com/mailersend/homebrew-tap
+    install: brew install --cask mailersend/tap/mailersend
+  - name: GitHub Releases (CLI binaries for Linux/macOS/Windows)
+    url: https://github.com/mailersend/mailersend-cli/releases
+official_count: 8

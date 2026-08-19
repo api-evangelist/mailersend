@@ -1,0 +1,583 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.mailersend.com/general
+notes: 'Two distinct registries. `api_error_codes` are MailerSend''s own #MS-prefixed application codes returned
+  inside the JSON error message on the REST API. `sms_delivery_codes` are the numeric downstream-carrier delivery-failure
+  codes reported on SMS messages (the SMS analogue of a payments decline-code table), including whether each failure
+  is billable.'
+api_error_codes:
+- code: MS40001
+  message: The bulk request sent is malformed.
+  explanation: The request payload provided is malformed. Please check the payload and contact Customer Support
+    for more help.
+- code: MS40301
+  message: The custom API token you're using doesn't have the required permissions.
+  explanation: 'The custom API token used doesn''t have the required permissions. For example, this error would
+    be returned if youe send a request to the email endpoint using a token that does not allow email access. If
+    you receive this error, check that you are using a token with the required permission.See more information about
+    token scopes: Possible scopes'
+- code: MS40302
+  message: Your account's access to API/SMTP has been switched off.
+  explanation: The Customer Support team has switched off the account's API/SMTP access. Please check your account
+    status on the MailerSend app or see if we sent an email with the next steps.
+- code: MS40303
+  message: Your account is not authorized to perform this action.
+  explanation: The account tried to send a request to the MailerSend servers but is not authorized to do so. Please
+    check your account status on the MailerSend app or see if we sent an email with the next steps
+- code: MS40304
+  message: Your account is suspended, you can't do any more requests.
+  explanation: The account tried to send a request to the MailerSend servers but is suspended. Please check your
+    account status on the MailerSend app or see if we sent an email with the next steps.
+- code: MS40305
+  message: Your IP address is not allowlisted.
+  explanation: The account tried to send a request to the MailerSend servers from an IP address that is not allowlisted.
+    Please ensure that your IP address is added to the allowlist. You can update your allowlisted IP addresses in
+    the MailerSend app or contact Customer Support for further assistance.
+- code: MS42201
+  message: “{recipient email} is duplicated in the {$field} recipients list.”
+  explanation: 'The request contains duplicated recipients. Turn on your domain''s Ignore duplicated recipients
+    advanced setting to avoid this error.Find out more about this setting: What is a sending domain'
+- code: MS42202
+  message: Could not validate the attached file. Filename and attached file does not match.
+  explanation: The file name and file type do not match. For example, the filetype is a GIF file but the file name
+    is image.png.
+- code: MS42204
+  message: Your account reached its email quota limit. Contact support to increase it.
+  explanation: The account has a custom email quota due to compliance concerns and it reached it. Contact customer
+    support to clarify how your business uses MailerSend.
+- code: MS42205
+  message: The {$field} recipient limit is exceeded.
+  explanation: 'The limit of TO, CC or BCC recipients in a single email object has been reached. Approved accounts
+    can include up to 50 TO, 10 CC and 10 BCC recipients. Unapproved acounts can include up to 10 TO, 1 CC and 1
+    BCC recipients. Get your account approved to send to more recipients or use our bulk email endpoint.See the
+    request parameter of the /email endpoint: Request parameters'
+- code: MS42206
+  message: The attachments.0.content size exceeds the threshold of 25 MB.”
+  explanation: 'The attachment size exceeds the limit of 25MB. Zip the file or use a cloud storage service to send
+    your file.See more information about the list of all supported filetypes: Supported file types'
+- code: MS42207
+  message: The from.email domain must be verified in your account to send emails.
+  explanation: 'The from.email domain must be verified in your account to be able to send emails. Please make sure
+    the domain you want to send from has a is_verified value set to ''true'' via the API or the app. Users on Starter
+    plans and above can also add the from email address as a sender identity.See more information about verifying
+    your domain: How to verify and authenticate a sending domain'
+- code: MS42208
+  message: The {$field} must be a valid email address.
+  explanation: 'There was a formatting problem in your request. The to/from/cc/bcc/reply-to.email must be a valid
+    email address.See more information about the request parameters: Request parameters'
+- code: MS42209
+  message: The {$field} field is required.”
+  explanation: 'There was either a formatting problem in your request or you''re missing one of the following parameters:
+    to, from, subject.See more information about the request parameters: Request parameters'
+- code: MS42210
+  message: This file type is not supported.”
+  explanation: 'This file type is not supported.See more information about the list of all supported filetypes:
+    Supported file types'
+- code: MS42211
+  message: You must provide one of html, text or template_id.”
+  explanation: 'There was either a formatting problem in your request or you''re missing one of the following parameters:
+    html, text or template_id. See more information about request parameters: Request parameters'
+- code: MS42213
+  message: The value you provided in :attribute failed to compile. Please check the submitted text/html.
+  explanation: There are some errors in the text or HTML provided, please make sure there are no errors to avoid
+    conflicts.
+- code: MS42214
+  message: You have used an app reserved variable. Please use another variable
+  explanation: The email you're trying to send has one or more variables that are reserved by the MailerSend application.
+    Please consider changing the variables to avoid conflicts.
+- code: MS42215
+  message: The attachment content must be a Base64 encoded string.
+  explanation: All attachments have to be encoded in a Base64 string. Find an encoder to convert your file before
+    attaching it to your email.
+- code: MS42216
+  message: This feature requires a Hobby plan or higher. Upgrade to use it.
+  explanation: 'There are some limits to each plan and the action you''d like to do is not available on your current
+    plan. Please take a look at the current limits and consider upgrading to a higher plan.See more information
+    about the plan limits: Pricing'
+- code: MS42217
+  message: One or more emails in the variables field do not exist in the recipients field.
+  explanation: The email addresses on the recipient and personalization fields do not match, please make sure you're
+    adding the same email address on both the TO and personalization fields.
+- code: MS42218
+  message: The send_at timestamp does not match the Unix format
+  explanation: The timestamp used for the send_at parameter is not written in the Unix format. The send_at parameter
+    has to be written in Unix format and be no longer than 72 hours in the future from the moment the call is made.Use
+    unixtimestamp to convert a date to the Unix timestamp format.
+- code: MS42219
+  message: The send_at must be a date in the future.
+  explanation: The timestamp used for the send_at parameter is not in the future. The send_at parameter has to be
+    written in Unix format and be no longer than 72 hours in the future from the moment the call is made.
+- code: MS42220
+  message: The {$field} may only contain alphanumeric characters and hyphens.
+  explanation: The value submitted must be a string consisting of only alphanumeric characters and hyphens.
+- code: MS42221
+  message: The {$field} must be a string.
+  explanation: The value submitted must be a string
+- code: MS42222
+  message: Your trial domain reached its email quota limit.
+  explanation: The email quota limit for your trial domain was reached.
+- code: MS42223
+  message: You already have a trial account.
+  explanation: ''
+- code: MS42224
+  message: Templates require a read own templates permission.
+  explanation: The read own templates permission must be assigned to the user in order to allow the user to read
+    the templates provided.
+- code: MS42225
+  message: You have reached the trial domain unique recipients limit.
+  explanation: Each trial domain has a limit of unique recipients allowed to send an email to. This limit has been
+    reached, and to continue sending emails please use the already created recipients.
+- code: MS42226
+  message: Your default template domain must be verified in your account to send emails.
+  explanation: The template in use has an associated default domain that is not verified. To send emails the domain
+    must be verified or disassociated from the template.
+- code: MS42227
+  message: JSON contains a syntax error.
+  explanation: The request payload provided contains a JSON syntax error. Please check the payload and contact Customer
+    Support for more help.
+- code: MS42228
+  message: JSON contains a decoding error.
+  explanation: The request payload provided contains a decoding error. Please check the payload and contact Customer
+    Support for more help.
+- code: MS42229
+  message: The number of email objects must not be greater than 500.
+  explanation: The request payload provided contains a number of email objects surpassing the limit of 500.
+- code: MS42230
+  message: The email objects are required.
+  explanation: The request payload provided does not contain any email object. Please check the payload and contact
+    Customer Support for more help.
+- code: MS42231
+  message: The bulk request item is invalid.
+  explanation: The email object provided is invalid. Please check the payload and contact Customer Support for more
+    help.
+- code: MS42232
+  message: The {$field} field is required when role is custom user.
+  explanation: When the user in question has the custom user role, it's mandatory to provide the permission details
+    for that user.
+- code: MS42901
+  message: Your account reached its API daily quota limit. Upgrade to increase it.
+  explanation: 'The account making the request reached its API daily quota limit. Upgrade to raise your quota.Every
+    request is counted against the quota and the quota is reset daily at midnight UTC.Trial plan accounts have a
+    daily limit of 100 API requests. Hobby plan accounts are limited to 1,000 daily requests. Starter plan accounts
+    can send up to 100,000 daily requests, and Professional or Enterprise plan accounts can send up to 500,000 requests.See
+    more information about quotas and learn how to avoid this error: Daily request quota'
+- code: MS42903
+  message: Your account reached its rate limit of {$limit} requests/min. Please wait before trying again.
+  explanation: 'The account making the request reached its rate limit. The default rate limit is 120 requests per
+    minute for /email endpoints, 10 requests per minute for /bulk-email endpoints and 60 requests per minute for
+    all other endpoints. Please wait for the amount of seconds indicated by ''retry-after'' and try again.See more
+    information about rate limits: Rate limits'
+- code: MS5001
+  message: Something unexpected happened while processing the bulk request. Please contact Customer Support if the
+    problem persists.
+  explanation: An unexpected error occurred in our servers while processing your bulk request. We are aware it happened
+    and are working on finding a fix. Please contact Customer Support if the problem persists.
+api_error_code_count: 39
+sms_delivery_codes:
+- code: 4001
+  slug: service-not-allowed
+  friendly: Message was rejected for reasons other than those covered by other 4xxx codes
+  explanation: This is a general error that the service you are attempting to use is not allowed; you may have inaccurate
+    permissions, formatting or may not be enable to use that service.
+  billable: false
+- code: 4301
+  slug: malformed-invalid-encoding
+  friendly: Malformed message encoding
+  explanation: The message contains invalid characters that are not supported. MailerSend cannot re-encode message
+    for destination.
+  billable: false
+- code: 4302
+  slug: malformed-invalid-from-number
+  friendly: Malformed From number
+  explanation: 'The From number associated with the message is a number not routable to a carrier or valid in the
+    industry (Ex: a 9 digit number).'
+  billable: false
+- code: 4303
+  slug: malformed-invalid-to-number
+  friendly: Malformed To Number
+  explanation: 'The To number associated with the message is a number not routable to a carrier or valid in the
+    industry (Ex: a 9 digit number).'
+  billable: false
+- code: 4350
+  slug: malformed-for-destination
+  friendly: Malformed message encoding
+  explanation: Message passed validation on receive stage, but failed on send. This is likely because the destination
+    number (To) is an invalid number.
+  billable: false
+- code: 4360
+  slug: message-not-sent-expiration-date-passed
+  friendly: Message expired
+  explanation: Message was not sent because the specified expiration date passed before the message was able to
+    send
+  billable: false
+- code: 4401
+  slug: rejected-routing-error
+  friendly: BW is unable to route the message
+  explanation: Message is unable to be routed within MailerSend particularly when the source and destination are
+    the same number. The destination or To number is mis-provisioned or there is a configuration with the message
+    that is causing a situation where a message is being sent repeatedly between the same numbers.
+  billable: false
+- code: 4403
+  slug: rejected-forbidden-from-number
+  friendly: Messaging forbidden on From number
+  explanation: 'Messaging on this From number is forbidden most commonly because the number does not belong to MailerSend
+    or the account. Other reasons include: the TN is not enabled in the MailerSend Dashboard, the account associated
+    with this number is not enabled for this type of messaging, the TN is disconnected, or it is an invalid number
+    (i.e., 11111111111).'
+  billable: false
+- code: 4404
+  slug: rejected-forbidden-to-number
+  friendly: Messaging forbidden on To number
+  explanation: Messaging on this To number is forbidden. This could be the number is not active, not enabled for
+    messaging or is an invalid number (i.e. 11111111111)
+  billable: false
+- code: 4405
+  slug: rejected-unallocated-from-number
+  friendly: Unallocated from number
+  explanation: The From telephone number is considered unallocated when the number does not exist in our database
+    as an active number. This number is either not enabled for messaging at the industry level, or the number is
+    not yet released in the industry
+  billable: false
+- code: 4406
+  slug: rejected-unallocated-to-number
+  friendly: Unallocated to number
+  explanation: The To number associated with this message, while a valid North American number, is not yet assigned
+    to a carrier and the message cannot be sent downstream.
+  billable: false
+- code: 4407
+  slug: rejected-account-not-defined-from-number
+  friendly: From Number is associated with account
+  explanation: Undefined source account id. The From number associated with this message is not associated with
+    this account, is an invalid number or not configured appropriately to send messages.
+  billable: false
+- code: 4408
+  slug: rejected-account-not-defined-to-number
+  friendly: To Number not associated with account
+  explanation: Undefined destination account id. The To (destination) number is not associated with an account,
+    is an invalid number or not configured correctly to receive messages.
+  billable: false
+- code: 4409
+  slug: rejected-invalid-from-profile
+  friendly: Invalid destination profile
+  explanation: MailerSend failed to create destination. The destination profile is considered invalid, most often
+    this is because the destination number does not support MMS.
+  billable: false
+- code: 4410
+  slug: media-unavailable
+  friendly: Could not download media
+  explanation: There was an error retrieving the media from the media web server. Check the media URL and try to
+    access directly to see if the media can be fetched successfully.
+  billable: false
+- code: 4411
+  slug: rejected-message-size-limit-exceeded
+  friendly: Combined size of media too large
+  explanation: The total size of MMS message media/attachments exceeded the max file size supported
+  billable: false
+- code: 4412
+  slug: media-content-invalid
+  friendly: Failed to parse Content-Type for media
+  explanation: The media content type is not a supported media content type.
+  billable: false
+- code: 4420
+  slug: rejected-carrier-does-not-exist
+  friendly: No Route to Destination Carrier
+  explanation: The upstream carrier associated with the message does not exist in MailerSend configuration
+  billable: false
+- code: 4421
+  slug: rejected-forbidden-no-destination
+  friendly: No Route to Destination Carrier
+  explanation: The message cannot be sent downstream as the account associated with the message does not have permission
+    to send to this destination. You may not be provisioned to send to this destination.
+  billable: false
+- code: 4432
+  slug: rejected-forbidden-country
+  friendly: Messaging to country forbidden
+  explanation: MailerSend system indicates the account associated with the message is not enabled for messaging
+    this zone, this country or this country is outside of messaging reach (specifically for MMS).
+  billable: false
+- code: 4433
+  slug: rejected-forbidden-tollfree
+  friendly: Messaging on Toll Free Number Forbidden
+  explanation: The account associated with this message is not enabled for toll free messaging
+  billable: false
+- code: 4434
+  slug: rejected-forbidden-tollfree-for-recipient
+  friendly: Messaging to Toll Free Number Forbidden
+  explanation: Messaging to this toll free number is not allowed. Number is likely not enabled for messaging or
+    not active.
+  billable: false
+- code: 4470
+  slug: rejected-spam-detected
+  friendly: Rejected as SPAM
+  explanation: This message has been filtered and blocked by MailerSend for spam. Messages can be blocked for a
+    variety of reason, including but not limited to volumetric filtering, content blocking, SHAFT violation, etc.
+  billable: true
+- code: 4481
+  slug: rejected-from-number-in-blacklist
+  friendly: From Number in black list
+  explanation: The From number has been flagged by MailerSend as prohibited from sending messages. This is typically
+    because MailerSend or a downstream carriers has several violations; reports of spam, P2P violations, associated
+    with this number.
+  billable: false
+- code: 4482
+  slug: rejected-to-number-in-blacklist
+  friendly: To Number in black list
+  explanation: The number you are attempting to send to is blocked from receiving messages.
+  billable: false
+- code: 4492
+  slug: reject-emergency
+  friendly: Message to emergency number forbidden
+  explanation: Messaging to an emergency number is forbidden
+  billable: false
+- code: 4493
+  slug: rejected-unauthorized
+  friendly: Unauthorized
+  explanation: MailerSend service indicates the sender is not authorized to send messages from the account.
+  billable: false
+- code: 4700
+  slug: invalid-service-type
+  friendly: Carrier Rejected as Invalid Service Type
+  explanation: Carrier rejected message for invalid service type. This usually means messaging (SMS or MMS) is not
+    supported by the carrier or handset.
+  billable: true
+- code: 4701
+  slug: destination-service-unavailable
+  friendly: Destination is not reachable and SMS service is not available.
+  explanation: Carrier service is reporting the destination is not reachable or the SMS service is not available.
+  billable: true
+- code: 4702
+  slug: destination-subscriber-unavailable
+  friendly: Destination subscriber is unavailable.
+  explanation: This error indicates the subscriber is unavailable. There are several reasons for this; the subscriber
+    has turned off handset, the destination is unreachable or barred, the GSM subscriber is busy for outbound SMS,
+    SIM card is full, voicemail is full, or cannot reach the destination handset and has stored the message for
+    retry in its « Store & Forward » function.
+  billable: true
+- code: 4711
+  slug: rejected-message-size-limit-exceeded
+  friendly: Media size too large
+  explanation: Downstream vendor cannot retrieve the media as the MMS attachment is too large
+  billable: true
+- code: 4712
+  slug: media-content-invalid
+  friendly: The media content type is not supported
+  explanation: The media content type is not supported.
+  billable: true
+- code: 4720
+  slug: invalid-destination-address
+  friendly: Carrier Rejected as Invalid Destination Address
+  explanation: Carrier Rejected as Invalid Destination Address. This could mean the number is not in the numbering
+    plan (area code does not exist or the number is just invalid) or the number is not enabled for messaging (like
+    a landline). Additionally, for toll free messages to TMobile, this could also mean the user has opted to block
+    all toll free and short code traffic
+  billable: true
+- code: 4721
+  slug: destination-tn-deactivated
+  friendly: TN on deactivation list
+  explanation: The phone number you are attempting to send to is on the deactivation list. It is not associated
+    with a carrier to be able to receive messages or is inactive.
+  billable: true
+- code: 4730
+  slug: no-route-to-destination-carrier
+  friendly: No route to destination carrier or no roaming route exists.
+  explanation: Carrier is reporting there is no route available for message. This could be because no routing exists
+    to destination, no roaming route is available, the destination handset is roaming on a network that cannot be
+    reached, no SS7 route, or routing was denied
+  billable: true
+- code: 4740
+  slug: invalid-source-address-address
+  friendly: Carrier Rejected as Invalid Source Address
+  explanation: Carrier is rejecting the message due to invalid source address - the number does not exist in the
+    numbering plan. Other reasons for this error code is the source carrier is invalid or disabled or source not
+    authorized or the number type is not supported.
+  billable: true
+- code: 4750
+  slug: destination-rejected-message
+  friendly: Carrier Rejected Message
+  explanation: The destination carrier has rejected the message but provided no specific reason. For AT&T traffic,
+    this could be a prepaid user whose account is out of money, a subscriber that is provisioned to not receive
+    this type of SMS or it was identified as Spam
+  billable: true
+- code: 4751
+  slug: destination-rejected-message-size-invalid
+  friendly: Message is too long or message length is invalid for the carrier.
+  explanation: Carrier has rejected for message length is invalid or too long.
+  billable: true
+- code: 4752
+  slug: destination-rejected-malformed
+  friendly: Message is malformed for the carrier.
+  explanation: Carrier is rejecting the message malformed; this could be because of a blank message, unacceptable
+    data value, the receiving SMSC or SME does not accept messages with more than 160 characters, syntax error,
+    content is invalid, message ID is invalid, invalid parameter length, expected TLV missing, invalid TLV value,
+    invalid data coding scheme, invalid number of destinations, error in the optional part of the PDU body, TLV
+    not allowed, or XML validation error.
+  billable: true
+- code: 4753
+  slug: destination-rejected-handset
+  friendly: The destination handset has rejected the message
+  explanation: The handset has rejected the message
+  billable: true
+- code: 4770
+  slug: destination-spam-detected
+  friendly: Carrier Rejected as SPAM
+  explanation: The Carrier is reporting this message as blocked for SPAM. Spam blocks could be a result of content,
+    SHAFT violations (including specific keywords), originating address has been flagged for repeated spam content
+  billable: true
+- code: 4771
+  slug: rejected-shortened-url
+  friendly: Rejected due to shortened url
+  explanation: There was an error with the shortened URL used. MailerSend recommends customers obtain their own
+    dedicated domain if shortened links are needed for their messaging campaign.
+  billable: true
+- code: 4772
+  slug: rejected-tn-blocked
+  friendly: Blocked sender or receiver
+  explanation: This error indicates a blocked Sender or Receiver on the downstream platform. Please reach out to
+    MailerSend support so we can determine which telephone number is blocked and why.
+  billable: true
+- code: 4775
+  slug: destination-rejected-due-to-user-opt-out
+  friendly: Carrier Rejected due to user opt out
+  explanation: User has opted out of receiving messages from a particular sender. Remove the destination TN from
+    subscriber list and cease communication with the destination.
+  billable: true
+- code: 4781
+  slug: volume-violation-att
+  friendly: AT&T rejected due to 10DLC volumetric violation or throttling
+  explanation: AT&T rejected due to volumetric violation. You have sent over the rate limit for your toll-free number.
+    Please review your number throughput limit to ensure you are not exceeding the approved volumes. This error
+    can also indicate throttling by AT&T for other reasons, including high spam rates.
+  billable: true
+- code: 4785
+  slug: volumetric-violation
+  friendly: Carrier rejected due to volumetric violation
+  explanation: The carrier rejected the message due to a volumetric violation. You have sent over the allotted limit
+    and need to back off sending. Please retry after some time.
+  billable: true
+- code: 4795
+  slug: tfn-not-verified
+  friendly: Toll Free number is not verified
+  explanation: The message was blocked due to the toll free number not being verified. This can also be because
+    there is SPAM on the unverified TFN. Please review unverified sending limits and submit TFN for verification
+    as soon as possible.
+  billable: true
+- code: 5100
+  slug: temporary-app-error
+  friendly: Application Error
+  explanation: An application within the MailerSend service is experiencing a temporary error that is preventing
+    the message from being processed.
+  billable: false
+- code: 5101
+  slug: temporary-app-shutdown
+  friendly: Application Error
+  explanation: App going down. Message not received. Sender should send this messages later or to other host.
+  billable: false
+- code: 5106
+  slug: impossible-to-route
+  friendly: Impossible to route / Attempt to deliver through retries has failed.
+  explanation: Impossible to route / Attempt to deliver through retries has failed.
+  billable: false
+- code: 5111
+  slug: temporary-app-connection-closed
+  friendly: Application Error
+  explanation: Received messaged for connection which is already removed.
+  billable: false
+- code: 5201
+  slug: temporary-rout-error-retries-exceeded
+  friendly: Application Error
+  explanation: MailerSend service expired the message after attempts to deliver through retries failed.
+  billable: false
+- code: 5211
+  slug: temporary-app-error-app-busy
+  friendly: Application Error
+  explanation: MailerSend service application is temporarily busy so it cannot receive messages at this time
+  billable: false
+- code: 5220
+  slug: temporary-store-error
+  friendly: Application Error
+  explanation: Message not received. Cannot save message to store.
+  billable: false
+- code: 5231
+  slug: discarded-concatenation-timeout
+  friendly: Application Error
+  explanation: MailerSend did not receive all parts of message. Message can not be sent.
+  billable: false
+- code: 5500
+  slug: message-send-failed
+  friendly: General Message Send Failure
+  explanation: The destination carrier has reported a general service failure with sending the message.
+  billable: false
+- code: 5501
+  slug: message-send-failed
+  friendly: General Message Send Failure
+  explanation: The message is unable to send as no destination is available.
+  billable: false
+- code: 5600
+  slug: destination-carrier-queue-full
+  friendly: Carrier Service Unavailable
+  explanation: Carrier Service Unavailable. This could result from network congestion, messaging queue full on the
+    vendor side, throttling error on the vendor side.
+  billable: true
+- code: 5610
+  slug: submit _ sm-or-submit _ multi-failed
+  friendly: Carrier Service Failure
+  explanation: The downstream carrier application is experiencing an error. submitting the message has failed or
+    cancelling message has failed
+  billable: true
+- code: 5620
+  slug: destination-app-error
+  friendly: Carrier Application Error
+  explanation: The carrier is reporting a general error associated with their application processing the message.
+  billable: true
+- code: 5630
+  slug: message-not-acknowle
+  friendly: Carrier Application Error
+  explanation: NACK - no response or acknowledgement received from the carrier
+  billable: true
+- code: 5650
+  slug: destination-failed
+  friendly: Carrier Service Failure
+  explanation: Carrier Service is reporting a failure to send to destination (mobile operator or handset).
+  billable: true
+- code: 5999
+  slug: unknown-error
+  friendly: Unknown error from MailerSend
+  explanation: Unknown error generated by MailerSend when MailerSend core reports an unknown error
+  billable: false
+- code: 9902
+  slug: delivery-receipt-expired
+  friendly: Timed out waiting for delivery receipt. The reason a delivery receipt was not received is not known.
+  explanation: MailerSend timed out waiting for the delivery receipt, this could be because the downstream provider
+    did not send the requested delivery receipt or they sent after the system timed out at two hours.
+  billable: true
+- code: 9999
+  slug: unknown-error
+  friendly: Unknown error from downstream. Carrier reported a failure code that is unknown to MailerSend.
+  explanation: MailerSend does not recognize the vendor's error response or does not have the vendor code mapped
+    internally
+  billable: true
+sms_delivery_code_count: 65
+sms_delivery_code_classes:
+  4xxx: Rejected before or during send (validation, routing, permission, blocklist).
+  5xxx: Carrier-side failure after submission.
+  '9902': Timed out waiting for a delivery receipt.
+  '9999': Unknown code returned by the downstream carrier.
+status_vocabularies:
+  email_activity:
+  - queued
+  - sent
+  - delivered
+  - soft_bounced
+  - hard_bounced
+  - deferred
+  - junk
+  - opened
+  - clicked
+  - unsubscribed
+  - spam_complaints
+  sms:
+  - processed
+  - queued
+  - sent
+  - delivered
+  - failed

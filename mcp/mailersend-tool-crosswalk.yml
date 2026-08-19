@@ -1,0 +1,589 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/mailersend-mcp.yml + openapi/*.yml
+notes: 'Bindings are by name and semantics: MailerSend''s live MCP tools/list is OAuth-gated (401), so no observed
+  inputSchema was available. `unmapped` is the honest shape of this crosswalk — those tools have real, documented
+  REST endpoints at developers.mailersend.com, they are simply absent from the OpenAPI captured in this repo, which
+  covers 16 of MailerSend''s operations. They are NOT MCP-only.'
+surfaces:
+  openapi:
+    files:
+    - openapi/mailersend-bulk-email-api-openapi.yml
+    - openapi/mailersend-domains-api-openapi.yml
+    - openapi/mailersend-email-api-openapi.yml
+    - openapi/mailersend-messages-api-openapi.yml
+    - openapi/mailersend-sender-identities-api-openapi.yml
+    - openapi/mailersend-templates-api-openapi.yml
+    - openapi/mailersend-webhooks-api-openapi.yml
+    operations: 16
+    note: Best-effort spec built from documentation; not published by MailerSend.
+  mcp:
+    url: https://mcp.mailersend.com/mcp
+    gated: true
+    note: tools/list returns 401 with an OAuth Bearer challenge; tool names/descriptions taken from the docs catalog.
+  graphql: null
+coverage:
+  tools_published: 127
+  tools_bound_to_openapi: 16
+  tools_unmapped_spec_gap: 109
+  tools_mcp_only: 2
+  rest_operations_total: 16
+  rest_operations_with_a_tool: 16
+crosswalk:
+- tool: send_email
+  category: Email Management
+  rest:
+  - sendEmail
+  spec: openapi/mailersend-email-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: send_bulk_email
+  category: Email Management
+  rest:
+  - sendBulkEmail
+  spec: openapi/mailersend-bulk-email-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: get_bulk_email_status
+  category: Email Management
+  rest:
+  - getBulkEmailStatus
+  spec: openapi/mailersend-bulk-email-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: list_domains
+  category: Domain Management
+  rest:
+  - listDomains
+  spec: openapi/mailersend-domains-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: get_domain
+  category: Domain Management
+  rest:
+  - getDomain
+  spec: openapi/mailersend-domains-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: add_domain
+  category: Domain Management
+  rest:
+  - addDomain
+  spec: openapi/mailersend-domains-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: list_messages
+  category: Message Management
+  rest:
+  - listMessages
+  spec: openapi/mailersend-messages-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: get_message
+  category: Message Management
+  rest:
+  - getMessage
+  spec: openapi/mailersend-messages-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: list_templates
+  category: Template Management
+  rest:
+  - listTemplates
+  spec: openapi/mailersend-templates-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: get_template
+  category: Template Management
+  rest:
+  - getTemplate
+  spec: openapi/mailersend-templates-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: delete_template
+  category: Template Management
+  rest:
+  - deleteTemplate
+  spec: openapi/mailersend-templates-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: list_webhooks
+  category: Webhook Management
+  rest:
+  - listWebhooks
+  spec: openapi/mailersend-webhooks-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: create_webhook
+  category: Webhook Management
+  rest:
+  - createWebhook
+  spec: openapi/mailersend-webhooks-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: delete_webhook
+  category: Webhook Management
+  rest:
+  - deleteWebhook
+  spec: openapi/mailersend-webhooks-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: list_identities
+  category: Sender Identity Management
+  rest:
+  - listIdentities
+  spec: openapi/mailersend-sender-identities-api-openapi.yml
+  binding: rest
+  confidence: high
+- tool: create_identity
+  category: Sender Identity Management
+  rest:
+  - createIdentity
+  spec: openapi/mailersend-sender-identities-api-openapi.yml
+  binding: rest
+  confidence: high
+mcp_only:
+- tool: search
+  reason: MCP-native retrieval primitive (ChatGPT/Deep-Research style search+fetch); no equivalent public REST operation
+    is documented.
+- tool: fetch
+  reason: MCP-native retrieval primitive (ChatGPT/Deep-Research style search+fetch); no equivalent public REST operation
+    is documented.
+rest_only: []
+unmapped:
+- tool: delete_domain
+  category: Domain Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/domains
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_domain_recipients
+  category: Domain Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/domains
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_domain_settings
+  category: Domain Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/domains
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_dns_records
+  category: Domain Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/domains
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: verify_domain
+  category: Domain Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/domains
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_smtp_users
+  category: SMTP User Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/smtp-users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_smtp_user
+  category: SMTP User Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/smtp-users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_smtp_user
+  category: SMTP User Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/smtp-users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_smtp_user
+  category: SMTP User Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/smtp-users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_smtp_user
+  category: SMTP User Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/smtp-users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_scheduled_messages
+  category: Message Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/messages
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_scheduled_message
+  category: Message Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/messages
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_scheduled_message
+  category: Message Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/messages
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_template
+  category: Template Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/templates
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_template
+  category: Template Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/templates
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_webhook
+  category: Webhook Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_webhook
+  category: Webhook Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_inbound_routes
+  category: Inbound Routing
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/inbound
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_inbound_route
+  category: Inbound Routing
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/inbound
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_inbound_route
+  category: Inbound Routing
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/inbound
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_inbound_route
+  category: Inbound Routing
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/inbound
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_inbound_route
+  category: Inbound Routing
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/inbound
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_recipients
+  category: Recipient Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_recipient
+  category: Recipient Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_recipient
+  category: Recipient Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_blocklist
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_hard_bounces
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_spam_complaints
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_unsubscribes
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_on_hold
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: add_to_blocklist
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: add_to_hard_bounces
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: add_to_spam_complaints
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: add_to_unsubscribes
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_from_blocklist
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_from_hard_bounces
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_from_spam_complaints
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_from_unsubscribes
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_from_on_hold
+  category: Suppression Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_activities
+  category: Activity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/activity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_activity
+  category: Activity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/activity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_analytics_by_date
+  category: Analytics Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/analytics
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_analytics_by_country
+  category: Analytics Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/analytics
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_analytics_by_user_agent_name
+  category: Analytics Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/analytics
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_analytics_by_user_agent_type
+  category: Analytics Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/analytics
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: verify_email
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: verify_email_async
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_async_verification_status
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_verification_lists
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_verification_list
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_verification_list
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: verify_list
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_verification_results
+  category: Email Verification
+  rest_documented_at: https://developers.mailersend.com/api/v1/verification/email
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_dmarc_monitors
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_dmarc_monitor
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_dmarc_monitor
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_dmarc_monitor
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_dmarc_aggregated_report
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_dmarc_ip_report
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_dmarc_report_sources
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: favorite_dmarc_ip
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: unfavorite_dmarc_ip
+  category: DMARC Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_blocklist_monitors
+  category: Blocklist Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_blocklist_monitor
+  category: Blocklist Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_blocklist_monitor
+  category: Blocklist Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_blocklist_monitor
+  category: Blocklist Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_blocklist_monitor
+  category: Blocklist Monitoring
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_tokens
+  category: Token Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/tokens
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_token
+  category: Token Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/tokens
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_token
+  category: Token Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/tokens
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_token
+  category: Token Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/tokens
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_token
+  category: Token Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/tokens
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_users
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_user
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: invite_user
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_user
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_user
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_invites
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_invite
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: resend_invite
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: cancel_invite
+  category: User & Invite Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/account/users
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_identity
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_identity
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_identity
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_identity_by_email
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_identity_by_email
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_identity_by_email
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: resend_identity
+  category: Sender Identity Management
+  rest_documented_at: https://developers.mailersend.com/api/v1/email/sender-identity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: send_sms
+  category: SMS
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_messages
+  category: SMS Messages
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/messages
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_sms_message
+  category: SMS Messages
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/messages
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_activity
+  category: SMS Activity
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/activity
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_numbers
+  category: SMS Numbers
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/numbers
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_sms_number
+  category: SMS Numbers
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/numbers
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_sms_number
+  category: SMS Numbers
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/numbers
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_sms_number
+  category: SMS Numbers
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/numbers
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_recipients
+  category: SMS Recipients
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_sms_recipient
+  category: SMS Recipients
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_sms_recipient
+  category: SMS Recipients
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/recipients
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_webhooks
+  category: SMS Webhooks
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_sms_webhook
+  category: SMS Webhooks
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_sms_webhook
+  category: SMS Webhooks
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_sms_webhook
+  category: SMS Webhooks
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_sms_webhook
+  category: SMS Webhooks
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/webhooks
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: list_sms_inbounds
+  category: SMS Inbound
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/inbounds
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: get_sms_inbound
+  category: SMS Inbound
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/inbounds
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: create_sms_inbound
+  category: SMS Inbound
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/inbounds
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: update_sms_inbound
+  category: SMS Inbound
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/inbounds
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.
+- tool: delete_sms_inbound
+  category: SMS Inbound
+  rest_documented_at: https://developers.mailersend.com/api/v1/sms/inbounds
+  reason: REST endpoint is documented by MailerSend but is not present in the OpenAPI captured in this repo.

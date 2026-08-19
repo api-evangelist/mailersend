@@ -1,0 +1,36 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/mailersend/mailersend-skills
+notes: >-
+  MailerSend publishes its own Agent Skills, so nothing here is generated on the provider's behalf. The
+  skill below was saved verbatim from the provider's repository at commit-time HEAD on 2026-08-13. It
+  follows the Agent Skills specification (agentskills.io/specification) and is distributed as a Claude
+  Code plugin marketplace (`/plugin marketplace add mailersend/mailersend-skills`) and by copying
+  `skills/` into a Codex CLI skills path.
+publisher: MailerSend
+repository: https://github.com/mailersend/mailersend-skills
+specification: https://agentskills.io/specification
+distribution:
+  - {channel: claude-code-plugin-marketplace, command: '/plugin marketplace add mailersend/mailersend-skills'}
+  - {channel: claude-code-plugin, command: '/plugin install mailersend@mailersend-skills'}
+  - {channel: codex-cli, note: 'Copy the skills/ directory into ~/.codex/skills.'}
+  - {channel: manual, note: 'Add the repo contents to a /.claude folder in the project root.'}
+skills:
+  - file: mailersend-cli/SKILL.md
+    name: MailerSend
+    slug: mailersend-cli
+    source: https://github.com/mailersend/mailersend-skills/tree/main/skills/mailersend-cli
+    method: searched
+    description: >-
+      Comprehensive guidance for driving the MailerSend platform through the `mailersend` CLI — sending
+      email and SMS, bulk sending, domains and DNS verification, templates, messages and delivery status,
+      analytics, webhooks, suppressions, email verification, inbound routes, API tokens, users, SMTP
+      users, sender identities, API quota, profiles and the interactive dashboard.
+    grounded_in: cli/mailersend-cli.yml
+    references:
+      - mailersend-cli/references/command-reference.md
+skill_count: 1
+surface_note: >-
+  MailerSend's skill targets the CLI rather than raw HTTP. That is a deliberate and slightly unusual
+  choice: it means the agent path and the human path are the same binary, and the skill inherits the
+  CLI's OAuth login and profile handling instead of asking an agent to hold a long-lived API token.

@@ -1,13 +1,82 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/mailersend-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/_original/mailersend-openapi.yml
+docs: https://developers.mailersend.com/general
+notes: >-
+  Upgraded from derived to searched on 2026-08-13. The OpenAPI declares a single bearer scheme; the docs
+  add the token model (per-domain, scoped, mlsn.-prefixed), the SMTP credential path, and a second,
+  entirely separate authorization surface — an OAuth 2.1 authorization server fronting the MCP server,
+  which the CLI also uses.
 summary:
-  types:
-  - http
+  types: [http, oauth2]
+  http_schemes: [bearer]
+  oauth2_flows: [authorizationCode]
+  api_key_in: [header]
 schemes:
-- name: BearerAuth
-  type: http
-  scheme: bearer
-  description: API token generated in MailerSend dashboard.
-  sources:
-  - openapi/mailersend-openapi.yml
+  - name: BearerAuth
+    type: http
+    scheme: bearer
+    in: header
+    header: Authorization
+    format: 'Bearer <API token>'
+    token_prefix: mlsn.
+    description: >-
+      Long-lived API token generated in the MailerSend dashboard (Settings → API Tokens) or via
+      POST /v1/token. Tokens are issued per sending domain and carry an explicit scope list.
+    scoped: true
+    scopes: scopes/mailersend-scopes.yml
+    rotation: 'Tokens can be paused/unpaused (PUT /v1/token/{token_id}) and deleted; no automatic expiry is documented.'
+    docs: https://developers.mailersend.com/api/v1/account/tokens
+    sources:
+      - openapi/_original/mailersend-openapi.yml
+      - https://developers.mailersend.com/general
+  - name: MCPOAuth
+    type: oauth2
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://mcp.mailersend.com/authorize
+        tokenUrl: https://mcp.mailersend.com/token
+        registrationUrl: https://mcp.mailersend.com/register
+        refresh: true
+        pkce: [S256]
+    description: >-
+      OAuth 2.1 authorization server protecting the MailerSend MCP server. Supports RFC 7591 dynamic
+      client registration, PKCE S256, and both authorization_code and refresh_token grants. Discovery via
+      RFC 8414 (/.well-known/oauth-authorization-server) and RFC 9728
+      (/.well-known/oauth-protected-resource).
+    token_endpoint_auth_methods: [client_secret_basic, client_secret_post, none]
+    applies_to: https://mcp.mailersend.com/mcp
+    sources:
+      - well-known/mailersend-oauth-authorization-server.json
+      - well-known/mailersend-oauth-protected-resource.json
+  - name: SMTPCredentials
+    type: smtp-basic
+    description: >-
+      SMTP relay users with their own username/password, managed independently of API tokens via the SMTP
+      Users endpoints. Same daily quota and a 120 req/min throttle apply.
+    docs: https://developers.mailersend.com/api/v1/email/smtp-relay
+    sources:
+      - https://developers.mailersend.com/api/v1/account/smtp-users
+cli_authentication:
+  methods: [oauth, api-token]
+  default: oauth
+  commands: ['mailersend auth login', 'mailersend auth login --method token', 'mailersend auth status', 'mailersend auth logout']
+  env_var: MAILERSEND_API_TOKEN
+  resolution_order: 'MAILERSEND_API_TOKEN env var > --profile flag > active profile > first profile'
+  refresh: 'OAuth tokens are automatically refreshed when they expire.'
+  docs: https://developers.mailersend.com/tools/cli
+credential_leak_guidance:
+  documented: true
+  url: https://developers.mailersend.com/guides/remediation-of-credential-leaks-api-token-and-smtp
+  note: >-
+    MailerSend publishes a dedicated remediation guide for leaked API tokens and SMTP credentials — an
+    uncommon and genuinely useful piece of operational documentation.
+errors:
+  '401': The provided API token is invalid.
+  '403': Action denied for the account or the token.
+  MS40301: The custom API token does not have the required permissions.
+  MS40302: The account's API/SMTP access has been switched off by support.
+  MS40305: The requesting IP address is not allowlisted.
+ip_allowlisting:
+  supported: true
+  note: Accounts may restrict API access to allowlisted IP addresses; violations return MS40305.

@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for MailerSend Bulk Email Sender Identities API
+  version: 1.0.0
+extends: openapi/mailersend-sender-identities-api-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: mailersend
+    x-apievangelist-enriched: '2026-08-13'
+    x-apievangelist-conventions: conventions/mailersend-conventions.yml
+    x-apievangelist-errors: errors/mailersend-problem-types.yml
+    x-apievangelist-error-codes: errors/mailersend-error-codes.yml
+    x-apievangelist-rate-limits: rate-limits/mailersend-rate-limits.yml
+    x-apievangelist-authentication: authentication/mailersend-authentication.yml
+    x-apievangelist-scopes: scopes/mailersend-scopes.yml
+    x-apievangelist-mcp: mcp/mailersend-mcp.yml
+    x-apievangelist-webhooks: asyncapi/mailersend-webhooks.yml
+    x-apievangelist-note: MailerSend publishes no machine-readable API contract; the extended document is an API
+      Evangelist best-effort spec built from developers.mailersend.com.
+- target: $
+  update:
+    x-rate-limit-headers:
+    - x-ratelimit-limit
+    - x-ratelimit-remaining
+    - x-ratelimit-reset
+    - retry-after
+    - x-apiquota-remaining
+    - x-apiquota-reset
+    x-idempotency:
+      supported: false
+      note: MailerSend documents no idempotency key.
+    x-pagination:
+      style: page-number
+      params:
+      - page
+      - limit
+      envelope: data

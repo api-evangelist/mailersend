@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/, https://developers.mailersend.com/
+notes: >-
+  Entity graph derived from the captured OpenAPI plus MailerSend's documented resource surface. The
+  domain is the organising root of the whole model: API tokens, sender identities, SMTP users, templates,
+  webhooks, inbound routes and suppression lists all hang off a sending domain, which is why a
+  domain-scoped token is MailerSend's permission boundary rather than an account-wide key.
+identifier_style:
+  shape: opaque alphanumeric string
+  examples_from_docs:
+    domain_id: 8jy7zpl90l5vx6kq
+    template_id: x2p0347z969lzdrn
+  prefixed: false
+  note: MailerSend uses unprefixed opaque IDs; there is no Stripe-style type prefix to disambiguate an ID.
+entities:
+  - name: Account
+    description: The MailerSend account; carries the plan, the daily API request quota and the approval state.
+    root: true
+  - name: Domain
+    description: A verified sending domain. The organising unit for tokens, identities, templates and settings.
+    operations: [listDomains, getDomain, addDomain]
+    spec: openapi/mailersend-domains-api-openapi.yml
+  - name: Token
+    description: A scoped API token issued for a sending domain.
+    docs: https://developers.mailersend.com/api/v1/account/tokens
+  - name: SenderIdentity
+    description: An individually verified from-address, usable on Starter plans and above without verifying the whole domain.
+    operations: [listIdentities, createIdentity]
+    spec: openapi/mailersend-sender-identities-api-openapi.yml
+  - name: SmtpUser
+    description: An SMTP relay credential scoped to a domain.
+    docs: https://developers.mailersend.com/api/v1/account/smtp-users
+  - name: Template
+    description: A reusable email template, with a default domain and optional default sender/subject.
+    operations: [listTemplates, getTemplate, deleteTemplate]
+    spec: openapi/mailersend-templates-api-openapi.yml
+  - name: Email
+    description: A single transactional send. Asynchronous — returns x-message-id, not a delivery result.
+    operations: [sendEmail]
+    spec: openapi/mailersend-email-api-openapi.yml
+  - name: BulkEmail
+    description: A batch of up to 500 email objects submitted in one request, tracked by a bulk_email_id.
+    operations: [sendBulkEmail, getBulkEmailStatus]
+    spec: openapi/mailersend-bulk-email-api-openapi.yml
+  - name: Message
+    description: A sent message record, expanding into per-recipient sub-messages and activity.
+    operations: [listMessages, getMessage]
+    spec: openapi/mailersend-messages-api-openapi.yml
+  - name: Activity
+    description: A delivery-lifecycle event on a message (sent, delivered, bounced, opened, clicked, ...).
+    docs: https://developers.mailersend.com/api/v1/email/activity
+  - name: Recipient
+    description: An email address MailerSend has sent to, tracked per domain.
+    docs: https://developers.mailersend.com/api/v1/email/recipients
+  - name: Suppression
+    description: >-
+      A recipient on a suppression list — blocklist, hard bounces, spam complaints, unsubscribes, or
+      on-hold. Five distinct lists sharing one shape.
+    docs: https://developers.mailersend.com/api/v1/email/recipients
+  - name: Webhook
+    description: A subscriber endpoint bound to a domain and an event selection, with its own signing secret.
+    operations: [listWebhooks, createWebhook, deleteWebhook]
+    spec: openapi/mailersend-webhooks-api-openapi.yml
+  - name: InboundRoute
+    description: An inbound-email route on a domain, forwarding parsed mail to an endpoint.
+    docs: https://developers.mailersend.com/api/v1/email/inbound
+  - name: ScheduledMessage
+    description: A message queued with send_at, cancellable up to its send time (max 72 hours out).
+    docs: https://developers.mailersend.com/api/v1/email/message-schedules
+  - name: VerificationList
+    description: A list of email addresses submitted for bulk verification, plus its results.
+    docs: https://developers.mailersend.com/api/v1/verification/email
+  - name: SmsMessage
+    description: An SMS send, expanding into sub-messages and per-recipient activity with carrier delivery codes.
+    docs: https://developers.mailersend.com/api/v1/sms/messages
+  - name: SmsNumber
+    description: A provisioned SMS phone number, pausable, with its own webhooks and inbound routes.
+    docs: https://developers.mailersend.com/api/v1/sms/numbers
+  - name: DmarcMonitor
+    description: A DMARC monitor on a verified domain, aggregating reports per source IP.
+    docs: https://developers.mailersend.com/api/v1/account/dmarc-monitoring
+  - name: BlocklistMonitor
+    description: A monitor watching a domain, IP or CIDR block for blocklist hits.
+    docs: https://developers.mailersend.com/api/v1/account/blocklist-monitoring
+  - name: User
+    description: An account user with a role and per-domain/per-template permissions; invitable.
+    docs: https://developers.mailersend.com/api/v1/account/users
+relationships:
+  - {from: Account, to: Domain, type: has_many}
+  - {from: Account, to: User, type: has_many}
+  - {from: Domain, to: Token, type: has_many, via: domain_id}
+  - {from: Domain, to: SenderIdentity, type: has_many, via: domain_id}
+  - {from: Domain, to: SmtpUser, type: has_many, via: domain_id}
+  - {from: Domain, to: Webhook, type: has_many, via: domain_id}
+  - {from: Domain, to: InboundRoute, type: has_many, via: domain_id}
+  - {from: Domain, to: Recipient, type: has_many, via: domain_id}
+  - {from: Domain, to: Suppression, type: has_many, via: domain_id}
+  - {from: Domain, to: DmarcMonitor, type: has_many, via: domain_id}
+  - {from: Template, to: Domain, type: belongs_to, via: domain_id, note: 'A template carries a default domain that must be verified to send.'}
+  - {from: Email, to: Template, type: belongs_to, via: template_id, optional: true}
+  - {from: Email, to: Domain, type: belongs_to, via: 'from.email domain', note: 'The from domain must be verified (MS42207).'}
+  - {from: Email, to: Message, type: has_one, via: x-message-id}
+  - {from: BulkEmail, to: Email, type: has_many, note: 'Up to 500 email objects per request (MS42229).'}
+  - {from: Message, to: Activity, type: has_many}
+  - {from: Activity, to: Recipient, type: belongs_to}
+  - {from: Recipient, to: Suppression, type: has_many}
+  - {from: Webhook, to: Activity, type: subscribes_to, note: '23 event types; see asyncapi/mailersend-webhooks.yml.'}
+  - {from: ScheduledMessage, to: Message, type: has_one}
+  - {from: SmsNumber, to: SmsMessage, type: has_many}
+  - {from: SmsNumber, to: Webhook, type: has_many, note: 'SMS webhooks are bound to a number, not a domain.'}
+  - {from: SmsNumber, to: InboundRoute, type: has_many}
+  - {from: VerificationList, to: Recipient, type: has_many}
+  - {from: User, to: Domain, type: has_many, note: 'Per-user domain and template permissions for the custom-user role.'}
+coverage_note: >-
+  Only 8 of these entities appear in the OpenAPI captured in this repo (Domain, SenderIdentity, Template,
+  Email, BulkEmail, Message, Webhook and their supporting shapes). The rest are derived from MailerSend's
+  documented resource surface, because MailerSend publishes no machine-readable contract covering them.
