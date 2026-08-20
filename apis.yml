@@ -34,6 +34,20 @@ tags:
   - SMS
   - Messaging
   - Templates
+  - Webhook
+  - Email Verification
+  - Deliverability
+  - Analytics
+  - MCP
+tags_raw:
+  - Email
+  - Transactional Email
+  - SMTP
+  - Marketing
+  - Communications
+  - SMS
+  - Messaging
+  - Templates
   - Webhooks
   - Email Verification
   - Deliverability
@@ -102,6 +116,8 @@ apis:
   humanURL: https://developers.mailersend.com/
   baseURL: https://api.mailersend.com/v1
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -138,6 +154,8 @@ apis:
   humanURL: https://developers.mailersend.com/
   baseURL: https://api.mailersend.com/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
