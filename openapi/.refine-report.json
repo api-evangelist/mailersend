@@ -1,13 +1,7 @@
 {
   "provider": "mailersend",
   "sources": [
-    "mailersend-bulk-email-api-openapi.yml",
-    "mailersend-domains-api-openapi.yml",
-    "mailersend-email-api-openapi.yml",
-    "mailersend-messages-api-openapi.yml",
-    "mailersend-sender-identities-api-openapi.yml",
-    "mailersend-templates-api-openapi.yml",
-    "mailersend-webhooks-api-openapi.yml"
+    "_original/mailersend-openapi.yml"
   ],
   "outputs": [
     "mailersend-bulk-email-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "mailersend-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "mailersend-bulk-email-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-domains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-email-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-sender-identities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "mailersend-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
