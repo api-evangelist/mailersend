@@ -145,3 +145,104 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: mailersend-go-module-proxy
+  label: Go module proxy
+  partner_name: Go module proxy
+  category: official SDK (Go)
+  type: register
+  channel: package-registry
+  evidence: https://pkg.go.dev/github.com/mailersend/mailersend-cli
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/mailersend/mailersend-cli
+      version: v1.0.6
+      released: '2026-02-19'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/mailersend/mailersend-cli
+      repo_leg: github-org:mailersend
+      publisher_leg: org:mailersend
+      matched_by: github-org
+    - name: github.com/mailersend/mailersend-go
+      version: v1.8.0
+      released: '2026-10-07'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/mailersend/mailersend-go
+      repo_leg: github-org:mailersend
+      publisher_leg: org:mailersend
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: mailersend-maven-central
+  label: Maven Central
+  partner: maven-central
+  partner_name: Maven Central
+  category: official SDK (Java/JVM)
+  type: register
+  channel: package-registry
+  evidence: https://central.sonatype.com/artifact/com.mailersend/java-sdk
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.mailersend:java-sdk
+      version: 2.4.0
+      released: '2026-09-29'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.mailersend/java-sdk
+      repo_leg: github-org:mailersend
+      publisher_leg: groupId:mailersend.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: mailersend-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/mailersend
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: mailersend
+      version: 3.4.1
+      released: '2026-09-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/mailersend
+      repo_leg: domain:mailersend.com
+      publisher_leg: email:mailersend.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
