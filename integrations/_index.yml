@@ -345,3 +345,16 @@
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
+- slug: mailersend-airtable-own
+  label: Airtable (own)
+  partner: airtable
+  partner_name: Airtable (own)
+  category: Airtable extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://airtable.com/marketplace/blkBzyV5En3l2Sfo5/mailersend
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
