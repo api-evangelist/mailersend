@@ -1,4 +1,4 @@
-# MailerSend (mailersend)
+# MailerSend
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,56 +64,175 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-MailerSend is a transactional email and SMS platform built for developers, with email API, SMTP relay, templates, and analytics.
+MailerSend is a transactional email and SMS platform built for developers. Its v1 REST API covers email sending (single, bulk to 500 objects per request, and scheduled up to 72 hours out), SMTP relay, templates, sending domains and DNS verification, sender identities, recipients and five suppression lists, inbound routing, activity and analytics, email verification, DMARC and blocklist monitoring, SMS, and account/token administration. Authentication is a domain-scoped bearer token drawn from a 30-value scope vocabulary. MailerSend ships six official SDKs, an official Laravel driver, a Go CLI with an interactive TUI, a remote OAuth-protected MCP server exposing 127 tools, and its own published Agent Skill — but no machine-readable API contract and no idempotency guarantee.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/mailersend/refs/heads/main/apis.yml)
+**Areas:** Email · Transactional Email · SMTP · Marketing · Communications · SMS · Messaging · Templates · Webhook · Email Verification · Deliverability · Analytics
 
-## Tags
+## MailerSend on APIs.io
 
-- Email
-- Transactional Email
-- SMTP
-- Marketing
-- Communications
+Everything profiled for MailerSend is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/mailersend/](https://apis.io/providers/mailersend/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-08
+- [MailerSend API](https://apis.io/apis/mailersend/mailersend-api/) — MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks,…
+- [MailerSend Bulk Email API](https://apis.io/apis/mailersend/mailersend-bulk-email-api/) — The Bulk Email API from MailerSend — 2 operation(s) for bulk email.
+- [MailerSend Domains API](https://apis.io/apis/mailersend/mailersend-domains-api/) — The Domains API from MailerSend — 2 operation(s) for domains.
+- [MailerSend Email API](https://apis.io/apis/mailersend/mailersend-email-api/) — The Email API from MailerSend — 1 operation(s) for email.
+- [MailerSend Messages API](https://apis.io/apis/mailersend/mailersend-messages-api/) — The Messages API from MailerSend — 2 operation(s) for messages.
+- [MailerSend Sender Identities API](https://apis.io/apis/mailersend/mailersend-sender-identities-api/) — The Sender Identities API from MailerSend — 1 operation(s) for sender identities.
+- [MailerSend Templates API](https://apis.io/apis/mailersend/mailersend-templates-api/) — The Templates API from MailerSend — 2 operation(s) for templates.
+- [MailerSend Webhooks API](https://apis.io/apis/mailersend/mailersend-webhooks-api/) — The Webhooks API from MailerSend — 2 operation(s) for webhooks.
 
-## APIs
+### Published properties
 
-### MailerSend API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-MailerSend API v1 provides RESTful endpoints for sending emails (single, bulk, scheduled), templates, domains, recipients, suppression lists, webhooks, analytics, SMS, and inbound routing.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://developers.mailersend.com/](https://developers.mailersend.com/)
-- **Base URL:** `https://api.mailersend.com/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Mailersend Webhooks](https://apis.io/asyncapis/mailersend/mailersend-webhooks/)
 
-- Email
-- Transactional
-- REST
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://developers.mailersend.com/)
-- [Email  Endpoint](https://developers.mailersend.com/api/v1/email.html)
-- [Postman Collection](collections/mailersend.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/mailersend.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [mailersend](https://apis.io/servers/mailersend/mailersend/)
 
-## Common Properties
+#### Agent skills (1)
 
-- [GitHub Organization](https://github.com/mailersend)
-- [LinkedIn](https://www.linkedin.com/company/mailersend)
+Agent skills built on the API.
+
+- [MailerSend](https://apis.io/agent-skills/mailersend/mailersend/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Mailersend Agentic Access](https://apis.io/agentic-access/mailersend/mailersend-agentic-access/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [MailerSend API](https://apis.io/collections/mailersend/open-mailersend/)
+- [MailerSend Bulk Email API](https://apis.io/collections/mailersend/open-mailersend-bulk-email-api/)
+- [MailerSend Bulk Email Domains API](https://apis.io/collections/mailersend/open-mailersend-domains-api/)
+- [MailerSend Bulk Email API](https://apis.io/collections/mailersend/open-mailersend-email-api/)
+- [MailerSend Bulk Email Messages API](https://apis.io/collections/mailersend/open-mailersend-messages-api/)
+- [MailerSend Bulk Email Sender Identities API](https://apis.io/collections/mailersend/open-mailersend-sender-identities-api/)
+- [MailerSend Bulk Email Templates API](https://apis.io/collections/mailersend/open-mailersend-templates-api/)
+- [MailerSend Bulk Email Webhooks API](https://apis.io/collections/mailersend/open-mailersend-webhooks-api/)
+
+#### Overlays (7)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Mailersend Bulk Email Api Overlay](https://apis.io/overlays/mailersend/mailersend-bulk-email-api-overlay/)
+- [Mailersend Domains Api Overlay](https://apis.io/overlays/mailersend/mailersend-domains-api-overlay/)
+- [Mailersend Email Api Overlay](https://apis.io/overlays/mailersend/mailersend-email-api-overlay/)
+- [Mailersend Messages Api Overlay](https://apis.io/overlays/mailersend/mailersend-messages-api-overlay/)
+- [Mailersend Sender Identities Api Overlay](https://apis.io/overlays/mailersend/mailersend-sender-identities-api-overlay/)
+- [Mailersend Templates Api Overlay](https://apis.io/overlays/mailersend/mailersend-templates-api-overlay/)
+- [Mailersend Webhooks Api Overlay](https://apis.io/overlays/mailersend/mailersend-webhooks-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Mailersend Authentication](https://apis.io/security/mailersend/mailersend-authentication/)
+- [Mailersend Domain Security](https://apis.io/security/mailersend/mailersend-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Mailersend Scopes](https://apis.io/scopes/mailersend/mailersend-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Mailersend Plans Pricing](https://apis.io/plans/mailersend/mailersend-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Mailersend Rate Limits](https://apis.io/rate-limits/mailersend/mailersend-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Mailersend Finops](https://apis.io/finops/mailersend/mailersend-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.mailersend.com/)
 - [Documentation](https://developers.mailersend.com/)
-- [Plans](plans/mailersend-plans-pricing.yml)
-- [Rate Limits](rate-limits/mailersend-rate-limits.yml)
-- [Fin Ops](finops/mailersend-finops.yml)
+- [Getting started](https://developers.mailersend.com/sdk)
+- [API reference](https://developers.mailersend.com/api/v1/email)
+- [Pricing](https://www.mailersend.com/pricing)
+- [Support](https://www.mailersend.com/help)
+- [Blog](https://www.mailersend.com/blog)
+- [Privacy policy](https://www.mailersend.com/legal/privacy-policy)
+- [GitHub](https://github.com/mailersend)
+- [Status](https://status.mailersend.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 56.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 54.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 78.6 |
+| Access clarity | 52.6 |
+
+**Agent readiness 56.3** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 31.7** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/mailersend/](https://apis.io/providers/mailersend/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for MailerSend: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/mailersend/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
